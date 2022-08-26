@@ -1,0 +1,67 @@
+# We will use Ubuntu for our image
+FROM ubuntu:latest
+
+# Updating Ubuntu packages
+RUN apt-get update && yes|apt-get upgrade
+RUN apt-get install -y emacs
+
+# Adding wget and bzip2
+RUN apt-get install -y wget bzip2
+
+# Set path to conda
+ENV export PATH=/opt/conda/bin:$PATH
+ENV export PREFIX=/opt/conda
+
+# Anaconda installing
+RUN cd /opt/ && \
+    wget https://repo.anaconda.com/archive/Anaconda3-5.3.0-Linux-x86_64.sh &&  \
+    bash Anaconda3-5.3.0-Linux-x86_64.sh -b -p /opt/conda  && \
+    rm Anaconda3-5.3.0-Linux-x86_64.sh
+
+# Updating Anaconda packages
+RUN /opt/conda/bin/conda update conda && \
+    /opt/conda/bin/conda update anaconda && \
+    /opt/conda/bin/conda update --all 
+
+ENV PATH=/opt/conda/bin:$PATH
+
+#Upgrade PIP
+RUN  pip install PyHamcrest
+RUN  pip install --upgrade pip
+
+#Install juputer
+RUN  pip install jupyter jupyterlab notebook
+
+#Install R
+RUN conda install -c r r-essentials r-irkernel 
+
+#Install dijitso
+RUN conda install -c conda-forge suitesparse
+RUN conda install -c conda-forge fenics==2018.1.0
+#RUN conda install -c mikaem/label/docker-conda-gcc dijitso
+
+
+# Add user ubuntu with no password 
+RUN adduser --disabled-password --gecos '' jovyan
+
+# Add single user start up script
+ADD jupyterhub-singleuser /usr/local/bin
+ADD start-notebook.sh   /usr/local/bin
+ADD start-singleuser.sh /usr/local/bin
+ADD start.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/*
+ENV export PATH=/opt/conda/bin:/usr/local/bin:$PATH
+
+RUN /opt/conda/bin/pip install oauthenticator
+USER jovyan
+WORKDIR /home/jovyan/
+RUN chmod a+rwx /home/jovyan/
+
+# Configuring access to Jupyter
+RUN jupyter notebook --generate-config 
+
+# Jupyter listens port: 8888
+EXPOSE 8888
+
+# Run Jupyter notebook as Docker main process
+CMD ["jupyter", "notebook", "--allow-root", "--notebook-dir=/home/jovyan", "--ip='0.0.0.0'","--port=8888", "--no-browser"]

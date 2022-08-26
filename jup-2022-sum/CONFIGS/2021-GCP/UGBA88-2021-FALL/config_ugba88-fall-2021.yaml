@@ -1,0 +1,163 @@
+hub:
+  cookieSecret: "b741f604abd5f846283d793702ac8fadafa66941f9c33036b4f6e63ef7217b49"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "6c47a103f56e80949b6e9475d8dfff9bbd9013a5b1e389a9b8f3988e0f6608cd"
+  https:
+    enabled: true
+    hosts:
+      - ugba88-fall-2021.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 35.225.253.151
+cull:
+  enabled: true
+  users: false
+  timeout: 3600
+  every: 600
+prePuller:
+  enabled: false
+singleuser:
+  image:
+    name: montereytony/ugba199-fall-2021
+    tag: test1
+    pullPolicy: IfNotPresent
+#    name: montereytony/ugba147
+#    tag: ugba88-Spring-2021-19
+#    pullPolicy: IfNotPresent
+#    tag: ugba88-Spring-2021-17
+#    tag: ugba88-Spring-2021-13
+#    tag: ugba88-Spring-2021-12
+  memory:
+    limit: 2G
+    guarantee: 2G
+  cpu:
+    limit: 1
+    guarantee: 1
+  storage:
+    capacity: 10Gi
+    dynamic:
+      storageClass: standard
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: nfs-pv-ugba88-fall
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+        readOnly: True
+  lifecycleHooks:
+    postStart:
+      exec:
+        command: ["/bin/sh", "-c", "/tmp/add_files.sh;mkdir -p my-work"]
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://ugba88-fall-2021.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  admin:
+    users:
+      - tony_cricelli
+      - rhuntsinger
+      - asantillan
+  whitelist:
+    users:
+      - ishika.goel
+      - rayyan
+      - drew.atkins
+      - nickmelamed
+      - rachelmccarty
+      - brandoncychan
+      - aboli.datey
+      - soumikc
+      - chloemkim
+      - britneywu
+      - rexliu3
+      - sophiadumesny
+      - emelia
+      - isabellarose_fuller
+      - sgperdue10
+      - matthewfeiz
+      - kayden.fu
+      - edisong
+      - krishgarg
+      - kgchar
+      - andrew.tang
+      - roynuma
+      - kev_wang
+      - jasminexwang
+      - anhducle0916
+      - nela62
+      - askumathe
+      - ansh14gupta
+      - rjha27
+      - allysonseong
+      - ben.davis
+      - charhorn
+      - joannechuang
+      - weiaolin
+      - kanchoo
+      - jinglan.liu
+      - coryng5
+      - meredithclarson
+      - thomasjovin
+      - dyhuynh
+      - ipshapandey
+      - aleclam
+      - carlamarin
+      - sanjana.y
+      - matthewelises
+      - ashleykua
+      - dkwak
+      - dkalotov
+      - kaitlindang
+      - hansonli
+      - rakshasen
+      - katherinezhang
+      - xiangyu.xu
+      - jackli0707
+      - jw16
+      - tien.tran255
+      - aamir.hudda
+      - ethanlo
+      - wie.alexus
+      - akam123
+      - raaed.kamran
+      - asbahwasim
+      - minwookie
+      - basketkoo98
+      - just_anthonie
+      - madeleinehara
+      - samchang
+      - emilyyu012
+      - isabellaotterson
+      - kevinkiwonlee
+      - suchira
+      - vishnusuresh
+      - sevinananda
+      - kohta.asa
+      - gracechi
+      - zhihanh2
+      - saddanki
+      - alex20020805
+      - teddydot
+      - cuijian545
+      - rachelgeorgian02
+      - suzanneharrison
+      - fox
+      - amy.ahlers
+      - rfarivar
+      - kaitlinrasborn
+      - caspar9999
+      - jackykwok
+      - siqiu020712
+      - kushkhandelwal018
+      - rebecca.hu
+      - atheneyu
+      - david.dardashti
+      - caden

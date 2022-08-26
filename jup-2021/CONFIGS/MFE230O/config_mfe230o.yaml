@@ -1,0 +1,53 @@
+hub:
+  cookieSecret: "1908b6821dd536e6be2245a3593ce8cdc886a335f0b9bfcb272984c5aeeae049"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "d22ec59ce8198956b8eada05663cabd183ed3c99d5cec7389421ae182e2267a6"
+#  service:
+#    type: ClusterIP
+  https:
+    enabled: true
+    hosts:
+      - mfe230o.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 34.122.153.72
+prePuller:
+  hook:
+    enabled: true
+#prePuller:
+#  enabled: false
+singleuser:
+  image:
+    name: montereytony/mba263
+    tag: 103042
+  memory:
+    limit: 6G
+    guarantee: 1G
+  cpu:
+    limit: 2
+    guarantee: 1
+  storage:
+    capacity: 5Gi
+    dynamic:
+      storageClass: standard
+#      storageClass: jupyterhub-user-ssd
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work
+#            gitpuller https://github.com/rahuntsinger/ugba147test main shared
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://mfe230o.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."

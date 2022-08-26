@@ -1,0 +1,13 @@
+#  kubectl apply -f xzhang_mysql-pv.yaml
+#  kubectl apply -f xzhang_mysql_deploy.yaml
+#  kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
+#  kubectl delete deployment,svc mysql
+#  kubectl delete pvc xzhang-pv-claim
+#  kubectl delete pv xzhang-pv-volume
+
+
+#kubectl get pvc
+#kubectl delete pvc xzhang-pv-claim
+
+
+

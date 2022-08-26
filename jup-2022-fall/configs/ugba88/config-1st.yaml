@@ -1,0 +1,53 @@
+#scheduling:
+#  userScheduler:
+#    enabled: true
+#  podPriority:
+#    enabled: true
+#  userPlaceholder:
+#    enabled: true
+#    replicas: 4
+#  userPods:
+#    nodeAffinity:
+#      matchNodePurpose: require
+#cull:
+#  enabled: true
+#  timeout: 3600
+#  every: 300
+prePuller:
+  continuous:
+    enabled: false
+  hook:
+    enabled: false
+singleuser:
+  cloudMetadata:
+    blockWithIptables: false
+  image:
+    name: montereytony/ugba-rah-sp22
+    tag: jup2-02
+  memory:
+    limit: 1G
+    guarantee: .5G
+  cpu:
+    limit: .5
+    guarantee: .25
+prePuller:
+  hook:
+    enabled: false
+proxy:
+ secretToken: "29522b9402d131b30281e0a9de82d3c1576910aab0b33dc1d7c9366882dde0ae"
+hub:
+  cookieSecret: "14dc0d7c0d5494ce10125ab3416294df261a51ac4c2757d5ba8dc53276b725df"
+  db:
+    type: sqlite-memory
+  config:
+    DummyAuthenticator:
+      password: N@choY0Mama
+    JupyterHub:
+      authenticator_class: dummy
+    Authenticator:
+      admin_users:
+        - tony
+      allowed_users:
+        - yoshi
+        - zane
+        - pchew

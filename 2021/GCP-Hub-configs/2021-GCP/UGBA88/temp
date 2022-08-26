@@ -1,0 +1,9 @@
+  type: none
+    extraVolumes:
+      - name: persistent-storage
+        persistentVolumeClaim:
+          claimName: efs-claim
+    extraVolumeMounts:
+      - name: persistent-storage
+        mountPath: '/home/jovyan'
+        subPath: 'home/{username}/shared'

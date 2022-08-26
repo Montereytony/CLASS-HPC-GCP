@@ -1,0 +1,88 @@
+hub:
+  cookieSecret: "e7f8558dd307cbad56b5eb596e63190ae346500df33525ebe271cfa358c68214"
+  db:
+    type: sqlite-memory
+#  extraConfig: |
+#    c.Spawner.cmd=["jupyter-labhub"]
+proxy:
+  secretToken: "06c5061f7e4244e3577079169c6991fe4ce0a014236b940c2861455e31c85e2b"
+  https:
+    enabled: true
+    hosts:
+      - pierre.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 35.192.48.44
+prePuller:
+  hook:
+    enabled: false
+#scheduling:
+#  userScheduler:
+#    enabled: true
+#  podPriority:
+#    enabled: true
+#  userPlaceholder:
+#    enabled: true
+#    replicas: 2
+#  userPods:
+#    nodeAffinity:
+#      matchNodePurpose: require
+cull:
+  enabled: true
+  timeout: 3600
+  every: 300
+singleuser:
+  image:
+    name: montereytony/jupyterdesktop
+    tag: working
+#    name: montereytony/ugba199-fall-2021
+#    tag: local13
+#    name: montereytony/jupyterdesktop
+#    tag: working
+#    name: montereytony/tony-9-16
+#    tag: latest
+#    name: montereytony/jupyterdesktop
+#    tag: standard
+#    tag: onsixyjupyterdesktop
+#    tag: jupyter-desktop-server-master
+#    name: montereytony/rstudio
+#    tag: yuvidesktop8
+#     name: montereytony/sql101
+#     tag: latest
+  memory:
+    limit: 4G
+    guarantee: 1G
+  cpu:
+    limit: 2
+    guarantee: 1
+  storage:
+    capacity: 5Gi
+    dynamic:
+      storageClass: standard
+#      storageClass: jupyterhub-user-ssd
+#  lifecycleHooks:
+#    postStart:
+#      exec:
+#        command:
+#          - "sh"
+#          - "-c"
+#          - >
+#            mkdir -p my-work
+#            gitpuller https://github.com/rahuntsinger/ugba147test main shared
+#defaultUrl: "/lab"
+auth:
+  type: dummy
+  dummy:
+    password: 'Internet2'
+  whitelist:
+    users:
+      - bala
+      - tim
+      - tony
+      - ramesh
+      - rhuntsinger
+  admin:
+    users:
+      - tony
+      - tony_cricelli

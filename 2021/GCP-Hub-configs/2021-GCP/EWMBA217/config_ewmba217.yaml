@@ -1,0 +1,54 @@
+hub:
+  cookieSecret: "39ef58d026ab96c35425d1ee2c76bc54b23136602407e15d70e13b3545fd7296"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "abd1d3d2cabf32eb3789e10d6685d912611feaec4af4bf19b7e491e18d04f18c"
+  https:
+    enabled: true
+    hosts:
+      - ewmba217.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 34.69.177.90
+prePuller:
+  enabled: false
+singleuser:
+  image:
+    name: montereytony/mba263
+    tag: 103042
+  memory:
+    limit: 6G
+    guarantee: 1G
+  cpu:
+    limit: 2
+    guarantee: 1
+  storage:
+    capacity: 5Gi
+    dynamic:
+      storageClass: standard
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: nfs-pv-ewmba217
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work
+#            gitpuller https://github.com/rahuntsinger/ugba147test main shared
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://ewmba217.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."

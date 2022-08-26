@@ -1,0 +1,53 @@
+hub:
+  cookieSecret: "c51c1f9889add006a43b1c19063b8fafbc5bd381662ba063ee118cdffaf8e64e"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "e985f3b4af84bec801219fd034915ba26b30be1008823b2cd0e79254db935bd3"
+  https:
+    enabled: true
+    hosts:
+      - ewmba263-1.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 35.223.236.54
+prePuller:
+  enabled: false
+singleuser:
+  image:
+     name: montereytony/mba263
+     tag: 121419
+  memory:
+    limit: 2G
+    guarantee: .5G
+  cpu:
+    limit: 1
+    guarantee: 0.25
+  storage:
+    capacity: 10Gi
+    dynamic:
+      storageClass: standard
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: nfs-pv-ewmba263-1
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+  lifecycleHooks:
+    postStart:
+      exec:
+        command: ["/bin/sh", "-c", "mkdir -p my-work"]
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://ewmba263-1.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  admin:
+    users:
+      - przemekj
+      - tony_cricelli

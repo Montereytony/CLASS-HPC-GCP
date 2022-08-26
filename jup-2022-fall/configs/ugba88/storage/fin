@@ -1,0 +1,28 @@
+
+kubectl patch pvc pvc-1a491dea-1ec4-4e1c-8b55-e118579f48b3"  -p '{"metadata": {"finalizers": null}}'
+kubectl patch pvc pvc-6fcf6a24-6525-4c7a-9771-8c8a8196bf19"  -p '{"metadata": {"finalizers": null}}'
+kubectl patch pvc pvc-6fe34073-007a-4bef-aafa-b784f5b45509"  -p '{"metadata": {"finalizers": null}}'
+kubectl patch pvc pvc-8befe6bb-a0b8-4f7c-8e51-10463692a7e2"  -p '{"metadata": {"finalizers": null}}'
+kubectl patch pvc pvc-bde9c344-a7b3-4979-bb99-f17704d81d7d"  -p '{"metadata": {"finalizers": null}}'
+kubectl patch pvc pvc-cff4d490-6aee-4960-93b0-7f2defe1866e"  -p '{"metadata": {"finalizers": null}}'
+
+kubectl -n ugba88 patch pvc claim-tony -p '{"metadata": {"finalizers": null}}'
+kubectl -n ugba88 patch pvc claim-yoshi -p '{"metadata": {"finalizers": null}}'
+kubectl -n ugba88 patch pvc claim-rhuntsinger -p '{"metadata": {"finalizers": null}}'
+kubectl -n ugba88 patch pvc claim-zane -p '{"metadata": {"finalizers": null}}'
+kubectl -n ugba88 patch pvc claim-pvc -p '{"metadata": {"finalizers": null}}'
+kubectl -n ugba88 patch pvc claim-pvc-sh -p '{"metadata": {"finalizers": null}}'
+kubectl -n ugba88 patch pvc claim-tony-5fcricelli  -p '{"metadata": {"finalizers": null}}'
+
+kubectl -n ugba88 delete pvc claim-tony-5fcricelli claim-pvc-sh claim-pvc claim-zane claim-rhuntsinger claim-yoshi claim-tony 
+
+
+ugba88/claim-tony              standard-rwo                   25h
+persistentvolume/pvc-6fcf6a24-6525-4c7a-9771-8c8a8196bf19   10Gi       RWO            Delete           Terminating   ugba88/claim-pchew             standard-rwo                   25h
+persistentvolume/pvc-6fe34073-007a-4bef-aafa-b784f5b45509   10Gi       RWO            Delete           Terminating   ugba88/claim-yoshi             standard-rwo                   25h
+persistentvolume/pvc-8befe6bb-a0b8-4f7c-8e51-10463692a7e2   5Gi        RWO            Delete           Terminating   ugba88/claim-rhuntsinger       standard                       38h
+persistentvolume/pvc-bde9c344-a7b3-4979-bb99-f17704d81d7d   10Gi       RWO            Delete           Terminating   ugba88/claim-tony-5fcricelli   standard-rwo                   44h
+persistentvolume/pvc-cff4d490-6aee-4960-93b0-7f2defe1866e   10Gi       RWO            Delete           Terminating   ugba88/claim-zane              standard-rwo                   25h
+persistentvolume/ugba88-pv                                  300Gi      RWX            Recycle          Terminating   ugba88/ugba88-pvc              class-ugba88                   45h
+persistentvolume/ugba88-pv-sh                               300Gi      ROX            Recycle          Bound         ugba88/ugba88-pvc-sh           class-ugba88-sh                45h
+gcp@MacI9 storage %

@@ -1,0 +1,27 @@
+FROM montereytony/ugba147
+USER root
+
+RUN sudo -H /opt/conda/bin/conda update -n base conda
+RUN ln -s /usr/lib/git-core/* /usr/local/bin
+RUN sudo -H /opt/conda/bin/pip install Cython 
+#--install-option="--no-cython-compile"
+RUN sudo -H /opt/conda/bin/conda update traitlets
+# add glove-python
+ADD GloVe-1.2 /tmp/glove
+RUN cd /tmp/glove; make 
+RUN cp /tmp/glove/build/* /usr/local/bin
+RUN rm -r -f /tmp/glove;
+RUN sudo -H apt-get -y install --upgrade python-wheel 
+RUN sudo apt-get -y  autoremove
+RUN  echo "deb http://de.archive.ubuntu.com/ubuntu/ saucy-updates main restricted " >> /etc/apt/sources.list \
+     echo "deb-src http://de.archive.ubuntu.com/ubuntu/ saucy-updates main multiverse restricted universe">> /etc/apt/sources.list
+RUN sudo -H apt-get  -y install build-essential checkinstall
+
+ADD glove /tmp/glove
+RUN cd /tmp/glove && ls -la && python setup.py install
+#RUN sudo -H jupyter nbextension install --py widgetsnbextension --sys-prefix
+#RUN sudo -H jupyter nbextension enable  --py widgetsnbextension --sys-prefix
+#RUN sudo -H jupyter serverextension enable --sys-prefix      nbgitpuller nbinteract nbconvert
+#RUN sudo -H jupyter nbextensions_configurator enable
+#RUN sudo -H jupyter nbextension enable --py jupyter_contrib_nbextensions --sys-prefix
+USER jovyan

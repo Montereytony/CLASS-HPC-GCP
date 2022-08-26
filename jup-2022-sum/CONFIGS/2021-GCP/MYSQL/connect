@@ -1,0 +1,1 @@
+kubectl exec -it mariadb-1-mariadb-0 --namespace default -- bash -c 'mysqladmin -uroot -p$MYSQL_ROOT_PASSWORD status'

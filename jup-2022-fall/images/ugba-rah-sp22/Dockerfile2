@@ -1,0 +1,121 @@
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+ARG OWNER=jupyter
+ARG BASE_CONTAINER=$OWNER/minimal-notebook
+FROM $BASE_CONTAINER
+
+LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
+
+USER root
+
+# R pre-requisites
+RUN apt-get update --yes && \
+    apt-get install --yes --no-install-recommends \
+    fonts-dejavu \
+    unixodbc \
+    unixodbc-dev \
+    r-cran-rodbc \
+    gfortran \
+    gcc \
+    libomp-dev \
+    libfontconfig1-dev \
+    build-essential 
+RUN apt update --yes -qq  && \
+    apt install --yes --no-install-recommends software-properties-common dirmngr  && \
+    wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc  && \
+    add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"  && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*  
+
+USER ${NB_UID}
+
+RUN mamba update mamba -c  conda-forge
+USER root
+RUN R -e 'install.packages(c(\
+"shiny",\
+"lightgbm",\
+"plyr",\
+"dplyr",\
+"base64enc",\
+"caret",\
+"colorspace",\
+"dummies",\
+"e1071",\
+"entropy",\
+"ggdendro",\
+"GGally",\
+"ggplot2",\
+"gtools",\
+"ggwordcloud",\
+"gridExtra",\
+"htmltools",\
+"igraph",\
+"IRdisplay",\
+"kableExtra",\
+"kknn",\
+"ks",\
+"knitr",\
+"lubridate",\
+"MASS",\
+"mclust",\
+"mvtnorm",\
+"neuralnet",\
+"NLP",\
+"pracma",\
+"polyclip",\
+"psych",\
+"qgraph",\
+"readxl",\
+"reshape2",\
+"rgl",\
+"rjson",\
+"rmarkdown",\
+"rpart",\
+"rpart.plot",\
+"simmer",\
+"simmer.plot",\
+"stringr",\
+"SnowballC",\
+"tm"),\
+repos="http://cran.us.r-project.org")'
+
+
+RUN R CMD javareconf && \
+     mamba clean --all -f -y && \
+     fix-permissions "${CONDA_DIR}" && \
+     fix-permissions "/home/${NB_USER}"
+
+USER root
+RUN sudo -H /opt/conda/bin/pip install pymysql python-sql mysql-connector-python ipython-sql 
+RUN apt-get update --yes &&  apt-get -y install mysql-client iputils-ping
+
+RUN mamba install --yes  r-dbi  r-rmariadb ipython-sql &&\ 
+    Rscript -e 'install.packages(c("RMySQL"),repos = "https://cloud.r-project.org",dependencies = TRUE)' && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
+RUN conda install -c conda-forge jupyter_contrib_nbextensions
+RUN jupyter nbextension install --py widgetsnbextension --sys-prefix
+RUN jupyter nbextension enable  --py widgetsnbextension --sys-prefix
+RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$JAVA_LD_LIBRARY_PATH
+
+
+USER ${NB_UID}
+#ADD custom.css /opt/conda/lib/python3.7/site-packages/notebook/static/custom/custom.css
+#ADD custom.css /opt/conda/lib/python3.7/site-packages/jupyter_core/tests/dotipython/profile_default/static/custom/custom.css
+#ADD custom.css /opt/conda/lib/python3.7/site-packages/jupyter_core/tests/dotipython_empty/profile_default/static/custom/custom.css
+#ADD custom.css /opt/conda/pkgs/notebook-5.7.5-py37_0/lib/python3.7/site-packages/notebook/static/custom/custom.css
+#ADD custom.css /opt/conda/pkgs/jupyter_core-4.6.1-py37_0/lib/python3.7/site-packages/jupyter_core/tests/dotipython/profile_default/static/custom/custom.css
+#ADD custom.css /opt/conda/pkgs/jupyter_core-4.6.1-py37_0/lib/python3.7/site-packages/jupyter_core/tests/dotipython_empty/profile_default/static/custom/custom.css
+#ADD custom.css /opt/conda/pkgs/notebook-6.0.1-py37_0/lib/python3.7/site-packages/notebook/static/custom/custom.css
+#ADD custom.css /opt/conda/pkgs/jupyter_core-4.4.0-py_0/site-packages/jupyter_core/tests/dotipython/profile_default/static/custom/custom.css
+#ADD custom.css /opt/conda/pkgs/jupyter_core-4.4.0-py_0/site-packages/jupyter_core/tests/dotipython_empty/profile_default/static/custom/custom.css
+#
+#ADD custom.css 		/tmp
+#ADD common.json  	/tmp
+#ADD tree.json  		/tmp
+#ADD notebook.json 	/tmp
+#ADD common.json   	/tmp
+#ADD tree.json     	/tmp
+#ADD notebook.json  	/tmp
+#ADD add_files.sh  	/tmp
+

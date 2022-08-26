@@ -1,0 +1,48 @@
+hub:
+  cookieSecret: "0e0c93048ac8177f5cdaa8036d3cd3d664aa025a5afe60a3916b52676c90ca6a"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "baef0e5248b324541d7455dd8b3c25822542a859df8ae8392c784ae3762c9b63"
+prePuller:
+  enabled: false
+singleuser:
+  image:
+     name: montereytony/sql101
+     tag: latest
+  memory:
+     limit: 6.5G
+     guarantee: 1G
+  cpu:
+     limit: 1 
+     guarantee: .5
+  storage:
+    type: hostPath
+    extraVolumes:
+        - name: home
+          hostPath:
+            path: /mnt/jhub/2020/sql101/homes/{username}
+        - name: course
+          hostPath:
+            path: /mnt/jhub/2020/sql101/course
+    extraVolumeMounts:
+        - name: home
+          mountPath: /home/jovyan
+        - name: course
+          mountPath: /home/jovyan/course
+          readOnly: True
+  lifecycleHooks:
+    postStart:
+      exec:
+        command: ["/bin/sh", "-c", "mkdir -p $HOME/my-work"]
+auth:
+  type: google
+  google:
+    clientId: "889201886192-c0mn5nf21bk9f9aamfp5n7t6sab3ke83.apps.googleusercontent.com"
+    clientSecret: "LXqN0zt0feFj2eRyX8Wd9mCe"
+    callbackUrl: "https://sql101.haas.berkeley.edu/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  admin:
+    users:
+      - tony_cricelli

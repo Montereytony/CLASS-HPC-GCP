@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pv-ewmba263-1
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 20Gi

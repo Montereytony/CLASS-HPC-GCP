@@ -1,0 +1,8 @@
+: jupyterproxy
+kind: Pod
+apiVersion: v1
+desiredState:
+  manifest:
+    containers:
+    - name: jupyterproxy
+      image: gcr.io/haas-jupyter-jub/ubuntu

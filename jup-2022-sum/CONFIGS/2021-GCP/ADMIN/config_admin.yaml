@@ -1,0 +1,40 @@
+hub:
+  cookieSecret: "f1ee20dfea79e2b80572d1a115f2e9cb8eb75d31483a60c137484a2f8b2ec26b"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "a2c940aea6d2d3ecd8dadb52ae05f4e8aac2b50877936bae982532ae1502b8fe"
+#  service:
+#    type: ClusterIP
+prePuller:
+  enabled: false
+singleuser:
+  image:
+    name: montereytony/admin
+    tag: latest
+  memory:
+    limit: 4G
+    guarantee: .5G
+  cpu:
+    limit: 4
+    guarantee: 0.25
+  storage:
+    capacity: 5Gi
+    dynamic:
+      storageClass: standard
+#      storageClass: jupyterhub-user-ssd
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work
+auth:
+  type: dummy
+  dummy:
+    password: 'tony-tony'
+  whitelist:
+    users:
+      - tony

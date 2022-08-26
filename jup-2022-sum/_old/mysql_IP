@@ -1,0 +1,15 @@
+Mysql:  10.103.128.3
+
+Master zone	us-central1-b
+Default node zones 	us-central1-b
+
+Pod address range	10.72.0.0/14
+password H@@$_Adm1n
+
+To access a Cloud SQL instance from an application running in Google Kubernetes Engine, you can use either the Cloud SQL Proxy (with public or private IP), or connect directly using a private IP address.
+The Cloud SQL Proxy is the recommended way to connect to Cloud SQL
+
+kubectl create secret generic My-RootDB-Secret> \
+  --from-literal=username=root \
+  --from-literal=password=H@@$_Adm1n \
+  --from-literal=database=haas_sql_class

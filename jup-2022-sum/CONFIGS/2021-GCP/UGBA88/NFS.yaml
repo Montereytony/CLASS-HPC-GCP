@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: shared
+  labels:
+    app: mission-control
+    id: ugba88-pv
+    type: nfs-volume
+spec:
+  capacity:
+    storage: 30Gi
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: 10.128.0.10
+    path: "/home/ugba88"
+    readOnly: true
+---
+
+### PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: share
+  labels:
+    app: mission-control
+    type: nfs-volume
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 50Gi
+  selector:
+    matchLabels:
+      app: mission-control
+      id: ugba88-pv

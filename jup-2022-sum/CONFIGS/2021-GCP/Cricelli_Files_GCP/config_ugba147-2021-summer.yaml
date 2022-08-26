@@ -1,0 +1,150 @@
+hub:
+  cookieSecret: "c58b78d6249dae1cd316967d80e141a5e0a89ea2ef386e0f5b7f1f0d95153543"
+  db:
+    type: sqlite-memory
+  concurrentSpawnLimit: 200
+  extraConfig:
+    announcements: |
+      c.JupyterHub.template_vars.update({ 'announcement': 'Report issues to tony_cricelli@berkeley.edu', })
+proxy:
+  secretToken: "c5486fb2b7dff31e628229979a8afd9773f50cd3c4b121a79499db0d878bc6bb"
+  https:
+    enabled: true
+    hosts:
+      - ugba147-2021-summer.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 34.69.121.133
+prePuller:
+  enabled: false
+singleuser:
+  image:
+    name: montereytony/ugba147
+    tag: ugba88-Spring-2021-17
+#    tag: ugba88-Spring-2021-13
+#    tag: ugba147-Spring-2021-8
+#    name: montereytony/ugba147
+#    tag: ugba147Spring2020-2
+  memory:
+    limit: 6.0G
+    guarantee: .5G
+  cpu:
+    limit: 1.0
+    guarantee: .25
+  storage:
+    capacity: 10Gi
+    dynamic:
+      storageClass: standard
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: nfs-pv-ugba147-2021-summer
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+        readOnly: True
+#  defaultUrl: "/lab"
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            export GIT_DISCOVERY_ACROSS_FILESYSTEM=1;
+            mkdir -p my-work;
+            bash /tmp/add_files.sh;
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://ugba147-2021-summer.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  admin:
+    users:
+      - tony_cricelli
+      - rhuntsinger
+      - omer_ardic
+      - asantillan
+  whitelist:
+    users:
+      - tony_cricelli
+      - rhuntsinger
+      - richard95lee
+      - branndon_marion
+      - raymond_liu
+      - murthy
+      - _anniez2017
+      - victorwshi
+      - noorulain
+      - sophiashaw
+      - li.zhihan
+      - jeshoung
+      - abhishek.roy
+      - graceq
+      - yulei_lin
+      - kristenwong16
+      - izavian
+      - kyha
+      - jiaxinli1999
+      - mitali.yadav
+      - jylee135
+      - adrianchiu
+      - kekechen
+      - enoohuh
+      - gelinemascardo
+      - cheongh
+      - zyi260798
+      - napasorn.s
+      - sherryhsu
+      - ccmccall
+      - rtuason22
+      - wanghao
+      - anniedai
+      - rle0201
+      - allisonwong28
+      - kellylam
+      - rachmaninoff
+      - patjun740
+      - cheungclj108
+      - jiayizhou
+      - gaowenhuang
+      - mferas
+      - minyiz0525
+      - yskim2020
+      - ellsafiorenza
+      - mansi.chudasama
+      - up3s
+      - karlican
+      - zevlyn
+      - cws98567
+      - charlez
+      - wonspark
+      - rongsen_li
+      - ysy0926
+      - 4jiao
+      - vuittons
+      - 01garimagupta
+      - elvisolis
+      - wfei
+      - narmin
+      - wtsai869
+      - annasasagawa
+      - babak.mammadli
+      - pliegeois
+      - maryckru
+      - lanwu
+      - ruizramiro65
+      - rachelmccarty
+      - gloriayang
+      - selinkaptana
+      - chloerongyuguo
+      - yjlee
+      - snehaldhawan
+      - huyho
+      - hb1999
+      - googleearth
+      - mntero

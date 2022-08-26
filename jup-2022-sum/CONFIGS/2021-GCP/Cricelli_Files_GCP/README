@@ -1,0 +1,35 @@
+
+#
+#
+# This is the way Tony installs jupyterhub's for courses on GCP in 5 easy steps
+#
+#
+
+1. First run bash: init_ugba147-2021-summer.sh
+
+This creates the namespace and initializes jupyterhub. Google  will give us the public IP 
+You will notice that we do not mount any storage with this yaml file since all we want is an IP and namespace.
+
+2. Next run  kubectl --namespace=ugba147-2021-summer get svc proxy-public  to get the external address.
+
+Now with the IP address,  go to AWS and update route53 with the name/ip
+
+With the DNS Name and IP updates, now we can update the second  yaml file, config_ugba147-2021-summer.yaml, 
+so the SSL cert can be created .
+
+Now initialize the shared, read only storage for the homework and class files. We only use NFS for this one folder mounted as shared.
+
+3. bash init_storage.sh
+
+Next  install new jupyterhub with the IP that google dynamically assigned.
+
+4. bash update_ugba147-2021-summer.sh
+
+At this point the jupyterhub should be ready.  About 50% of the times, the free SSL cert failes to install. I suspect it is a timing issue.
+To fix it, I enter kubectl --namespace=ugba147-2021-summer get pod | grep auto
+Then I delete the pod with  
+
+5. kubectl --namespace=ugba147-2021-summer del pod  autohttps-XXXXXXXXXX-YYYYY
+
+99.99% of the time we have a working hub at this point
+

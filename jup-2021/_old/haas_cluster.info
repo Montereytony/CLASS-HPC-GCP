@@ -1,0 +1,20 @@
+gcloud container clusters create haas \
+   --machine-type=n1-standard-2 \
+   --num-nodes=1 \
+   --enable-autoscaling \
+   --min-nodes=1 \
+   --max-nodes=20 \
+   --node-labels=hub.jupyter.org/node-purpose=user \
+   --node-taints=hub.jupyter.org_dedicated=user:NoSchedule \
+   --zone=us-central1-b
+WARNING: Warning: basic authentication is deprecated, and will be removed in GKE control plane versions 1.19 and newer. For a list of recommended authentication methods, see: https://cloud.google.com/kubernetes-engine/docs/how-to/api-server-authentication
+WARNING: Currently VPC-native is not the default mode during cluster creation. In the future, this will become the default mode and can be disabled using `--no-enable-ip-alias` flag. Use `--[no-]enable-ip-alias` flag to suppress this warning.
+WARNING: Newly created clusters and node-pools will have node auto-upgrade enabled by default. This can be disabled using the `--no-enable-autoupgrade` flag.
+WARNING: Starting with version 1.18, clusters will have shielded GKE nodes by default.
+WARNING: Your Pod address range (`--cluster-ipv4-cidr`) can accommodate at most 1008 node(s).
+Creating cluster haas in us-central1-b... Cluster is being health-checked (master is healthy)...done.
+Created [https://container.googleapis.com/v1/projects/haas-jupyter-jub/zones/us-central1-b/clusters/haas].
+To inspect the contents of your cluster, go to: https://console.cloud.google.com/kubernetes/workload_/gcloud/us-central1-b/haas?project=haas-jupyter-jub
+kubeconfig entry generated for haas.
+NAME  LOCATION       MASTER_VERSION   MASTER_IP       MACHINE_TYPE   NODE_VERSION     NUM_NODES  STATUS
+haas  us-central1-b  1.16.13-gke.401  104.197.37.107  n1-standard-2  1.16.13-gke.401  1          RUNNING

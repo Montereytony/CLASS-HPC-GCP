@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pv-ugba88-fall
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 30Gi

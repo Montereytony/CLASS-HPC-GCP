@@ -1,0 +1,8 @@
+hosts    = {{ .DBHOST }}:{{ .DBPORT }}
+user     = {{ .DBUSER }}
+password = {{ .DBPASS }}
+dbname   = {{ .DBNAME }}
+
+option_group = client
+
+query = SELECT maildir FROM mailbox WHERE username='%s' AND active = 1

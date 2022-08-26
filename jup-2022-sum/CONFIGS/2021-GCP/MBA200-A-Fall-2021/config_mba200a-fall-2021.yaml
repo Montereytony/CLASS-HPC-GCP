@@ -1,0 +1,378 @@
+#scheduling:
+#  userScheduler:
+#    enabled: true
+#  podPriority:
+#    enabled: true
+#  userPlaceholder:
+#    enabled: false
+#    replicas: 0
+#  userPods:
+#    nodeAffinity:
+#      matchNodePurpose: require
+#cull:
+#  enabled: true
+#  timeout: 3600
+#  every: 300
+hub:
+  cookieSecret: "873fd8da2eed528a905cdc8778122fdaa929c1feb7b80539055a2fd7c63b4aad"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "54489077d9f6ef39da9545e9e90c47e99905ba26d0453bdf44a10f217844fe1d"
+  https:
+    enabled: true
+    hosts:
+      - mba200a-fall-2021.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 34.121.32.117
+#cull:
+#  enabled: true
+#  users: false
+#  timeout: 3600
+#  every: 600
+prePuller:
+  enabled: false
+singleuser:
+  image:
+    name: montereytony/mba200a
+    tag: jup2-9
+#    name: montereytony/mba200a
+#    tag: jup2-7
+#    name: montereytony/sql101
+#    tag: latest
+#    name: montereytony/ugba147
+#    tag: ugba88-Spring-2021-19
+    pullPolicy: IfNotPresent
+#    tag: mba200a-Spring-2021-17
+#    tag: mba200a-Spring-2021-13
+#    tag: mba200a-Spring-2021-12
+  memory:
+    limit: 1.0G
+    guarantee: .25G
+  cpu:
+    limit: .75
+    guarantee: .5
+  storage:
+    capacity: 1Gi
+    dynamic:
+      storageClass: standard
+#    extraVolumes:
+#      - name: jupyterhub-shared
+#        persistentVolumeClaim:
+#          claimName: nfs-pv-mba200a-fall
+#    extraVolumeMounts:
+#      - name: jupyterhub-shared
+#        mountPath: /home/jovyan/shared
+#        readOnly: True
+  lifecycleHooks:
+    postStart:
+      exec:
+        command: ["/bin/sh", "-c", "/tmp/add_files.sh;mkdir -p my-work"]
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://mba200a-fall-2021.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  Authenticator:
+    admin_users:
+      - tony_cricelli
+      - davidcon
+      - gertler
+    allowed_users:
+      - jkolstad
+      - via.abolencia
+      - maryam.adewumi
+      - naghaei
+      - wardah_akhtar
+      - malrayes
+      - sk_alagbada
+      - bushra_aldaoud
+      - albert_alix
+      - nediva_anderson
+      - alex_angarita
+      - dariusansari
+      - juan.arias
+      - bree.aronin
+      - felipe_arrazola
+      - nemobaker
+      - alefiyah
+      - manoj.bandreddi
+      - taarika_bangalore
+      - grant.barnhart
+      - rfb
+      - ugaitz_bartolome
+      - dara_batomunkueva
+      - riddhima.batta
+      - eduardo.battagin
+      - andrew.beliveau
+      - mallorybell
+      - jordan.bell
+      - anhelobenavides
+      - alana_bhatla
+      - arohi
+      - alana_bianes
+      - mbilginsoy
+      - aron_bjarnason
+      - matt_blain
+      - john_bolaji
+      - stephanie.borglin
+      - fbosselin
+      - neva_bowers
+      - tessbreuch
+      - ajbriccetti
+      - erin.brock
+      - mike_brodin
+      - alex_burton
+      - santi_canedo
+      - jordancarr
+      - isaacmcastro94
+      - aparnachaganty
+      - shaodan_chai
+      - alan_chan
+      - raymond.chao
+      - jaschi
+      - sydney.chirls
+      - dana_christensen
+      - seungjae.chung
+      - h_chung
+      - hezi_cohen
+      - tj.considine
+      - sandra_cuevas
+      - priyancka_daga
+      - don.dai
+      - harry_davies
+      - rhenrydean
+      - maria.deloso
+      - kyle.deshon
+      - madeline_deysine
+      - samuel.dobberpuhl
+      - alex_drakos
+      - shane_dunau
+      - chioma.i.ekedede
+      - robert_ellis_jr
+      - riespinosa
+      - andrew.feeney
+      - miranda.ferguson
+      - aleff21
+      - andrew.filipek
+      - max_fine
+      - edson.flores
+      - ramiro.flores
+      - josh_folds
+      - natalie_fox
+      - dillon_freeman
+      - hannah_gable
+      - jackgj
+      - julianagensheimer
+      - ricky_ghoshal
+      - carlson.giddings
+      - hilary_going
+      - thalita_gomes
+      - dingmi
+      - gorczyca
+      - henry_gordon
+      - max.gotsch
+      - uriel
+      - alison.greer
+      - charlie_greulich
+      - rick_griffith
+      - dan.gringarten
+      - davis.grove
+      - eliashbaylac
+      - byungwoo.han
+      - will.hanley
+      - travishanly
+      - joseph_harmon
+      - sophie_he
+      - robby.hill
+      - jingwen_hu
+      - edward_huang
+      - andrew.hungate
+      - alexander.hunter
+      - clairehurkmans
+      - uiseok.hwang
+      - nicolasi
+      - nipunjain
+      - jyotsna
+      - bmjensen
+      - akshat_jhingan
+      - renata_jorge
+      - rohit_joseph
+      - fiorella_juscamaita
+      - minjee_kang
+      - liz_kanovsky
+      - sam.kaplan
+      - samaksh_kapoor
+      - jkasten
+      - sofia_katsaggelos
+      - alexanderkeat
+      - hitesh.kenjale
+      - alyssakewenvoyouma
+      - afraz_khan
+      - amil
+      - pearly_khare
+      - dongwan_kim
+      - steve.kim
+      - soohwan.kim
+      - jessica_kim
+      - melissa_kong
+      - ryota_kubo
+      - teo.lamiot
+      - thomas.laurent
+      - nga.le
+      - yslee1395
+      - ben_lee
+      - christine.li
+      - vickyli
+      - guanlun.liao
+      - luis.lira
+      - deniseliu
+      - z.liu
+      - cherrie_liu
+      - edward_loera
+      - mateus_loesch
+      - gurbuxlohana
+      - austin.long
+      - trevor_lopes
+      - jason_lopyan
+      - lily_lorbeer
+      - ian.lordemann
+      - jared.lorenzo
+      - jlughmani33
+      - aniela_mack
+      - daniel.mahoney
+      - tongai
+      - josh.martow
+      - riccardo.mastellone
+      - nicholas.maynes
+      - mbakire
+      - matthew.j.mcgoffin
+      - wmckelvey
+      - maelym.medina
+      - anjali.menon
+      - olivia_millspaugh
+      - aayush.misra
+      - guilhermeklingelfus
+      - zach_mooyoung
+      - elsa_mora
+      - nmora
+      - alex_morse
+      - sam.moskal
+      - naomi.mov
+      - pmullangi
+      - gonzalomunoz
+      - ravi_nagpal
+      - petra_nelson
+      - megan.nelson
+      - wesley_ng
+      - andrew.a.ng
+      - trey_nguyen
+      - angie_nguyen
+      - bobni
+      - knoguchi
+      - chinonso_nwagha
+      - eogrady
+      - roxana.obregon
+      - grace.olechowski
+      - caleb.ong
+      - eornellas
+      - aortega3
+      - fiodor.otero
+      - robertpak1
+      - varot.pak
+      - apalarajah
+      - joaquinpanos
+      - carravita
+      - euisoon_park
+      - mpavez
+      - conradop
+      - lily_peng
+      - tommaso.perticucci
+      - bpicciano
+      - alessandra_ponce
+      - shane.porter
+      - cmpowers
+      - anjulpratapsingh
+      - christin
+      - darylpugh
+      - prahill
+      - joshua_raifman
+      - julian_ramirez
+      - jp_ranu
+      - srecabar
+      - shelley.reese
+      - ryan.renkey
+      - matthew_rittenhouse
+      - giovanni.rivera
+      - cesar.rizo
+      - summer.robins
+      - alex.rohrbach
+      - adriana.rueda
+      - aahanasahai
+      - ricardo_sampaio
+      - asborov
+      - campbellscott
+      - diane.seethor
+      - joe.shamon
+      - whitney_shapiro
+      - himank1569
+      - monica_shavers
+      - tiffany.shih
+      - drewsilverman
+      - mslipp
+      - stacey.sloate
+      - christian.soares
+      - msolowan
+      - khalil_somani
+      - j7song
+      - lovre_soric
+      - andrew_sova
+      - tomas.stegmann
+      - simran_sundriyal
+      - miyako_takashima
+      - alijah.talley
+      - ryantan1990
+      - john.thompson
+      - trevor_thorpe
+      - sarah_thorson
+      - hoangto
+      - jenniferztran
+      - christian_trigg
+      - chris_trojniak
+      - fiona.truong
+      - varun_tyagi
+      - suppal92
+      - yiannos_vakis
+      - natalie_valentin
+      - jan_vanous
+      - aaron_veera
+      - bruno_velloso
+      - neil.verma
+      - joy_wang92
+      - tomoe_wang
+      - james.wang
+      - jcw626
+      - ali.ware
+      - jude.watson
+      - dougwatts
+      - h.weber
+      - m.williams
+      - thomas_wilson89
+      - alina.wong
+      - tony_w
+      - yhelen
+      - julian.yao
+      - charles_yates
+      - elizabeth.yen
+      - franklinyu
+      - alyssa_zabin
+      - ricardo.zalla
+      - zane_zhang
+      - wei.zheng
+      - harrison_zhu
+      - rileyzinar

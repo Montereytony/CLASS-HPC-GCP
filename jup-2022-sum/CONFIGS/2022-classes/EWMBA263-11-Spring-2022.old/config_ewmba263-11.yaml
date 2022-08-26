@@ -1,0 +1,57 @@
+proxy:
+  secretToken: "e7d2c5e54110bbb1f0edd92a6b233c194ab2e2a030a70febc0ca32fe4c052d3e"
+prePuller:
+  enabled: true
+singleuser:
+  cull:
+    enabled: true
+  extraEnv:
+    EDITOR: "vim"
+  https:
+    enabled: true
+    hosts: 'ewmba263-11.haastech.org'
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 104.154.117.49
+prePuller:
+  enabled: false
+singleuser:
+  image:
+    name: montereytony/tutorials
+    tag: local-1
+  memory:
+    limit: 2G
+    guarantee: 2G
+  cpu:
+    limit: 1.0
+    guarantee: 1.0
+  storage:
+    capacity: 10Gi
+    dynamic:
+      storageClass: standard
+  lifecycleHooks:
+    postStart:
+      exec:
+        command: ["/bin/sh", "-c", "mkdir -p my-work"]
+hub:
+  cookieSecret: "f0a4e41fa00bfbcdecbe1ac8bfa5abc60f486c94c729ba3edaf82b6e74f8c851"
+  db:
+    type: sqlite-memory
+    upgrade: true
+#  extraConfig:
+#    announcements: |
+#      c.JupyterHub.template_vars.update({ 'announcement': 'This hub is maintained by <br> <A href="mailto:tony_cricelli@berkeley.edu"> tony_cricelli@berkeley.edu </A> <br/> This hub is being turned off by 06/30/2022. <br/> Please make sure you have downloaded all of your files.', })
+  config:
+    GoogleOAuthenticator:
+      client_id: '152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com'
+      client_secret: 'jXNHCWRcYWfXW1Y9HV0zhUuZ'
+      hosted_domain: 'berkeley.edu'
+      login_service: 'your Berkeley Account.'
+      oauth_callback_url: 'https://ewmba263-11.haastech.org/hub/oauth_callback'
+    JupyterHub:
+      authenticator_class: google
+    Authenticator:
+      admin_users:
+      - tony_cricelli
+      - olivia.natan

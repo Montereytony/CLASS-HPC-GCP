@@ -1,0 +1,213 @@
+hub:
+  cookieSecret: "80b57b7e9d3ea04a4637faff0790adfa067a0d93ea7d999f755153b97ba22eb7"
+  db:
+    type: sqlite-memory
+  concurrentSpawnLimit: 200
+  extraConfig:
+    announcements: |
+      c.JupyterHub.template_vars.update({ 'announcement': 'Report issues to tony_cricelli@berkeley.edu', })
+proxy:
+  secretToken: "d034e8aa9ba61fa77c1d1fcd98f87cb37ee9a4b8e05f111972f830280e8f3bfd"
+  https:
+    enabled: true
+    hosts:
+      - ugba147.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 173.255.118.212
+prePuller:
+  enabled: false
+singleuser:
+  image:
+    name: montereytony/ugba147
+    tag: ugba88-Spring-2021-17
+#    tag: ugba88-Spring-2021-13
+#    tag: ugba147-Spring-2021-8
+#    name: montereytony/ugba147
+#    tag: ugba147Spring2020-2
+  memory:
+    limit: 4G
+    guarantee: .5G
+  cpu:
+    limit: 2
+    guarantee: 0.25
+  storage:
+    capacity: 10Gi
+    dynamic:
+      storageClass: standard
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: nfs-pv-ugba147
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+        readOnly: True
+#  defaultUrl: "/lab"
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            export GIT_DISCOVERY_ACROSS_FILESYSTEM=1;
+            mkdir -p my-work;
+            bash /tmp/add_files.sh;
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://ugba147.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  admin:
+    users:
+      - tony_cricelli
+      - rhuntsinger
+      - omer_ardic
+      - asantillan
+  whitelist:
+    users:
+      - tony_cricelli
+      - rhuntsinger
+      - omer_ardic
+      - asantillan
+      - bones11
+      - amanda.quon
+      - johnlaga
+      - ilenekung
+      - brettirvin
+      - luwangdyzx
+      - arsh.vishen
+      - annefogarty
+      - srbercini
+      - ellenzheng
+      - zxie1
+      - emilyjin
+      - anurag.sharma
+      - ziyue.zheng
+      - cankaya
+      - austin.takei
+      - sreyac
+      - sterlingyichuchen
+      - deveshagarwal
+      - ukapoor
+      - tina.teng
+      - emma.westin
+      - parouz
+      - hjeong21
+      - annabright108
+      - charlesmcmurry
+      - liamjocson
+      - maggyli
+      - amy1009
+      - kelly_han
+      - suyashjaju
+      - zihan.wen
+      - meiyiwang
+      - shirleywang57
+      - mansi.chudasama
+      - amandaliu75
+      - alba.romero
+      - emily.smith
+      - guanangela
+      - anniedabo
+      - aliceyao
+      - anoosha.balebail
+      - terrychau
+      - ashleymia123
+      - markhenrysalupen
+      - lali_14
+      - claire-hw-huang
+      - _anniez2017
+      - poojamanyam
+      - grace.zhao
+      - sarahhashemian
+      - dulrich
+      - kailchen21
+      - ajhunjhunwala
+      - rhurst1029
+      - xiao.yao
+      - kaseywoo1240
+      - kwalia1999
+      - snehas
+      - iyavari
+      - meherarora
+      - marnst
+      - ssach
+      - tretiak-alex
+      - thomaslow
+      - hb1999
+      - klarachisholm
+      - tony2000lee
+      - sunnyshen
+      - kristenwong16
+      - ebruodok
+      - peterzhangbj
+      - jylee135
+      - jerry_chao555
+      - zhouwaed
+      - kalinahuynh
+      - minyiz0525
+      - ming.7an
+      - jcao8
+      - cws98567
+      - 4jiao
+      - cecilia.li
+      - emily.smith
+      - guanangela
+      - anniedabo
+      - aliceyao
+      - anoosha.balebail
+      - terrychau
+      - ashleymia123
+      - markhenrysalupen
+      - lali_14
+      - claire-hw-huang
+      - _anniez2017
+      - poojamanyam
+      - grace.zhao
+      - sarahhashemian
+      - dulrich
+      - kailchen21
+      - ajhunjhunwala
+      - rhurst1029
+      - xiao.yao
+      - kaseywoo1240
+      - kwalia1999
+      - snehas
+      - iyavari
+      - meherarora
+      - marnst
+      - ssach
+      - tretiak-alex
+      - thomaslow
+      - hb1999
+      - klarachisholm
+      - tony2000lee
+      - sunnyshen
+      - jasmine.zhang22
+      - kristenwong16
+      - ebruodok
+      - peterzhangbj
+      - jylee135
+      - jerry_chao555
+      - zhouwaed
+      - kalinahuynh
+      - minyiz0525
+      - ming.7an
+      - jcao8
+      - cws98567
+      - 4jiao
+      - saahilshangle
+      - vicky.yu5400
+      - erikalee
+      - abby_cai1018
+      - harzha114
+      - lengochai06
+      - alanlp
+      - viviennelam
+      - landelitianrun

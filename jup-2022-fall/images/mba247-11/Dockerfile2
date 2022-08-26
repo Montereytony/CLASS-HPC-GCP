@@ -1,0 +1,24 @@
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+FROM umsimads/education-notebook:1017284261a0
+LABEL maintainer="Montereytony <montereytony@gmail.com>"
+#USER ${NB_UID}
+RUN Rscript -e "devtools::install_github('dahtah/imager')" 
+RUN python -m pip install jupyterthemes
+RUN python -m pip install --upgrade jupyterthemes
+RUN python -m pip install jupyter_contrib_nbextensions
+#RUN pip install RISE
+#RUN jupyter-nbextension install rise --py --sys-prefix
+#RUN jupyter-nbextension enable  rise --py --sys-prefix
+RUN Rscript -e 'install.packages(c("tm","SnowballC","wordcloud","imager","pROC","rpart.plot"),repos = "https://cloud.r-project.org",dependencies = TRUE)'
+RUN Rscript -e 'install.packages(c("arules","ROSE"),repos = "https://cloud.r-project.org",dependencies = TRUE)'
+RUN Rscript -e 'install.packages(c("installr"),repos = "https://cloud.r-project.org",dependencies = TRUE)'
+
+USER root
+RUN apt-get  -y update -qq
+#	apt install --no-install-recommends software-properties-common dirmngr  && \
+#	wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc  && \
+#	add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"  && \
+#	apt install --no-install-recommends r-base  && \
+#	add-apt-repository ppa:c2d4u.team/c2d4u4.0+
+USER ${NB_UID}

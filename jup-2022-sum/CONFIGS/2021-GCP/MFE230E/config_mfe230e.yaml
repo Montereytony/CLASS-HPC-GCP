@@ -1,0 +1,159 @@
+hub:
+  cookieSecret: "1908b6821dd536e6be2245a3593ce8cdc886a335f0b9bfcb272984c5aeeae049"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "d22ec59ce8198956b8eada05663cabd183ed3c99d5cec7389421ae182e2267a6"
+#  service:
+#    type: ClusterIP
+  https:
+    enabled: true
+    hosts:
+      - mfe230e.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 34.123.140.229
+prePuller:
+  hook:
+    enabled: true
+#prePuller:
+#  enabled: false
+singleuser:
+  image:
+    name: montereytony/mfe230e
+    tag: Spring-2021-02
+#    tag: Spring-2021-01
+  memory:
+    limit: 16G
+    guarantee: 1G
+  cpu:
+    limit: 4
+    guarantee: .5
+  storage:
+    capacity: 10Gi
+    dynamic:
+      storageClass: standard
+#      storageClass: jupyterhub-user-ssd
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: nfs-pv-mfe230e
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+        readOnly: True
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work
+#            gitpuller https://github.com/rahuntsinger/ugba147test main shared
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://mfe230e.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  admin:
+    users:
+      - msauzet
+      - tony_cricelli
+      - nicolas.corthorn
+      - aadarsh_singh
+      - lettau
+  whitelist:
+    users:
+      - lettau
+      - msauzet
+      - tony_cricelli
+      - nicolas.corthorn
+      - aadarsh_singh
+      - e.huang
+      - chenziaontu
+      - aojun.zhang
+      - pspalding
+      - gaohang1997
+      - taige_hong
+      - shreysamdani
+      - rongbing
+      - ypchen
+      - cpzcpz123
+      - wukaixi
+      - shuyu_wang
+      - xhe22
+      - chris-ren
+      - marcantoine.loo
+      - yufei_chen
+      - alex_sadler
+      - minxun.xu
+      - zhuoyuan_xu
+      - wenzhao_wu
+      - john_marshall
+      - akashv
+      - prarthana_shetty
+      - zefu.chen
+      - chu_gong
+      - rahul_budhadev
+      - ayush_gupta
+      - zhenyu_wang
+      - rachit_tripathi
+      - apeksha_jain
+      - wangtingjun
+      - srajangarg
+      - taweepol_j
+      - zizhao_wang
+      - alecmadayan
+      - yohan.abitboul
+      - xidong
+      - kefan_shi
+      - yp.liu
+      - chunyan_lei
+      - k.lertpienthum
+      - richard_wuebker
+      - juhi_singhal
+      - cohene
+      - karan_desai
+      - peixuan_he
+      - yifei.tong
+      - daniela_toyber
+      - shiwangi.prasad
+      - yijie_li
+      - tingting_zhou
+      - dmitry.silantyev
+      - zhiling_zhou
+      - g77wang
+      - ranran.lei
+      - kunal_chakraborty
+      - yulangwang
+      - theo_dillies
+      - frederic.lucien
+      - jill_shah
+      - pradeepta
+      - franciscolanza
+      - xinyu_li_mfe
+      - ali.kazmane
+      - krishna_goel
+      - sheldon.benard
+      - sarthak_sagar
+      - pankaj_kumar
+      - surbhi.dang
+      - abdelmadjid_laouedj
+      - neil.gulati
+      - zelong.qiu
+      - alexandre_herbein
+      - yuting_peng
+      - amandanish
+      - joseph_yang
+      - avoyage
+      - marin_gautier
+      - neerja_talreja
+      - chandni.bhatia
+      - nicolas_boraschi
+      - menghsuantsai
+      - yusong_z

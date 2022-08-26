@@ -1,0 +1,65 @@
+hub:
+  cookieSecret: "80b57b7e9d3ea04a4637faff0790adfa067a0d93ea7d999f755153b97ba22eb7"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "d034e8aa9ba61fa77c1d1fcd98f87cb37ee9a4b8e05f111972f830280e8f3bfd"
+#  https:
+#    enabled: true
+#    hosts:
+#      - ugba147.haastech.org
+#    letsencrypt:
+#      contactEmail: tony_cricelli@berkeley.edu
+#  service:
+#    loadBalancerIP: 35.226.187.244
+prePuller:
+  enabled: false
+singleuser:
+  image:
+    name: montereytony/ugba147
+    tag: ugba147-Spring-2021-5
+  memory:
+    limit: 4G
+    guarantee: .5G
+  cpu:
+    limit: 4
+    guarantee: 0.25
+  storage:
+    capacity: 50Gi
+#    dynamic:
+#      storageClass: standard
+#      storageClass: jupyterhub-user-ssd
+#  extraEnv: 
+#    GRANT_SUDO: "yes"
+#    NOTEBOOK_ARGS: "--allow-root"
+#  uid: 0
+#  cmd: start-singleuser.sh
+#  defaultUrl: "/lab"
+  lifecyclesHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work;
+            mkdir -p /home/jovyan/.jupyter;
+            mkdir -p /home/jovyan/.jupyter/custom;
+            cp -n /tmp/notebook.json /home/jovyan/.jupyter/nbconfig;
+            cp -n /tmp/tree.json /home/jovyan/.jupyter/nbconfig;
+            cp -n /tmp/common.json /home/jovyan/.jupyter/nbconfig;
+            cp -n /tmp/custom.css /home/jovyan/.jupyter/custom.css;
+            cp -n /tmp/custom.css /home/jovyan/.jupyter/custom/custom.css;
+            gitpuller https://github.com/rahuntsinger/ugba147test main shared
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://ugba147.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  admin:
+    users:
+      - tony_cricelli
+      - rhuntsinger

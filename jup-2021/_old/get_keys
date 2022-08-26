@@ -1,0 +1,3 @@
+kubectl --kubeconfig /Users/gcp/.kube/config get secrets -n kube-system ssh-keys \
+-o jsonpath='{.data.ssh\.key}' | base64 -d > \
+~/.ssh/haas.key && chmod 600 ~/.ssh/haas.key

@@ -1,0 +1,55 @@
+hub:
+  cookieSecret: "873fd8da2eed528a905cdc8778122fdaa929c1feb7b80539055a2fd7c63b4aad"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "54489077d9f6ef39da9545e9e90c47e99905ba26d0453bdf44a10f217844fe1d"
+#  service:
+#    type: ClusterIP
+prePuller:
+  enabled: false
+singleuser:
+  image:
+    name: montereytony/ugba147
+    tag: ugba147-Spring-2021-7
+  memory:
+    limit: 2G
+    guarantee: 2G
+  cpu:
+    limit: 1
+    guarantee: 1
+  storage:
+    capacity: 1Gi
+    dynamic:
+      storageClass: standard
+#      storageClass: jupyterhub-user-ssd
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work;
+            mkdir -p /home/jovyan/.jupyter;
+            mkdir -p /home/jovyan/.jupyter/custom;
+            cp -n /tmp/notebook.json /home/jovyan/.jupyter/nbconfig;
+            cp -n /tmp/tree.json /home/jovyan/.jupyter/nbconfig;
+            cp -n /tmp/common.json /home/jovyan/.jupyter/nbconfig;
+            cp -n /tmp/custom.css /home/jovyan/.jupyter/custom.css;
+            cp -n /tmp/custom.css /home/jovyan/.jupyter/custom/custom.css;
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://mba200a-fall-2021.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+#
+#
+#
+  admin:
+    users:
+      - tony_cricelli
+      - rhuntsinger

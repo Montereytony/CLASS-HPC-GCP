@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: homer
+spec:
+  capacity:
+   storage: 300Gi
+  accessModes:
+   - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: manual2
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /home/ugba147/ugba147-2022-fall/home
+    server: 10.128.0.10
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: homer1
+spec:
+  storageClassName: manual2
+  accessModes:
+   - ReadWriteOnce
+  resources:
+   requests:
+    storage: 5Gi

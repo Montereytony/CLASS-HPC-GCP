@@ -1,0 +1,872 @@
+    1  cd OLD/
+    2  ls -la
+    3  source .aliases
+    4  ls -lad .al*
+    5  pwd
+    6  cd Documents/GitHub/ls
+    7  cd Documents/GitHub/
+    8  vi stata-2021-jup/
+    9  cd stata-2021-jup/ls
+   10  cd stata-2021-jup/l
+   11  cd stata-2021-jup/
+   12  vi Dockerfile
+   13  cd ..
+   14  cd stata-jupyter-master
+   15  more fix-permissions
+   16  grep Copy Dockerfile
+   17  grep COP Dockerfile
+   18  grep fix Dockerfile
+   19  cd
+   20  jup1
+   21  history | grep zshr
+   22  vi .zshrc
+   23  source .zshrc
+   24  ls
+   25  vi .aliases
+   26  ls
+   27  cd OLD
+   28  ls
+   29  vi .zshrc
+   30  vi .aliases
+   31  source .aliases
+   32  jup1
+   33  bear
+   34  ssh root@bear.haas.berkeley.edu
+   35  ssh root@bear.haas.berkeley.edu
+   36  jup1
+   37  irix
+   38  cd
+   39  ls -lart
+   40  cd lookat
+   41  ls
+   42  ls -la |more
+   43  more .zshrc
+   44  cd
+   45  vi .zshrc
+   46  irix
+   47  ls
+   48  cd Documents/GitHub
+   49  ls
+   50  cd sas
+   51  ls
+   52  grep sas */Dockerfile
+   53  vi haas-matlab/Dockerfile
+   54  cd haas-sas2
+   55  ls
+   56  vi Dockerfile
+   57  more sas
+   58  jup1
+   59  cd
+   60  ssh root@jupyterhub.haas.berkeley.edu
+   61  ls
+   62  cd Documents/GitHub
+   63  ls
+   64  grep fix- */Docker
+   65  grep fix */Docker
+   66  grep fix */Dockerfile
+   67  ls */fix*
+   68  haas-fem/fix-permissions
+   69  more haas-fem/fix-permissions
+   70  ls
+   71  ls
+   72  mkdir test
+   73  cd te
+   74  cd test
+   75  ls
+   76  git clone https://github.com/yuvipanda/jupyter-desktop-server.git
+   77  ls
+   78  cd jupyter-desktop-server
+   79  ls
+   80  pwd
+   81  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+   82  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+   83  docker scan
+   84  ls
+   85  more README.md
+   86  docker run --rm  -p 8888:8888 montereytony/rstudio:yuvidesktop
+   87  ls
+   88  vi Dockerfile
+   89  cd
+   90  cd Documents/GitHub
+   91  ls
+   92  cd jupyterDesktop
+   93  ls
+   94  vi Dockerfile
+   95  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+   96  vi Dockerfile
+   97  ls
+   98  cp * ../test/jupyter-desktop-server
+   99  cp -r * ../test/jupyter-desktop-server
+  100  cd ../test/jupyter-desktop-server
+  101  ls
+  102  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  103  grep altair *
+  104  vi Dockerfile
+  105  ls
+  106  pwd
+  107  vi Dockerfile
+  108  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  109  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  110  vi Dockerfile
+  111  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  112  vi Dockerfile
+  113  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  114  vi Dockerfile
+  115  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  116  vi Dockerfile
+  117  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  118  vi Dockerfile
+  119  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  120  vi Dockerfile
+  121  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  122  vi Dockerfile
+  123  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  124  vi Dockerfile
+  125  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  126  vi Dockerfile
+  127  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  128  vi Dockerfile
+  129  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  130  da2
+  131  cd
+  132  da2
+  133  da1
+  134  irix
+  135  da2
+  136  cd Documents/GitHub
+  137  ls
+  138  grep /lab */Dockerfile
+  139  grep lab */Dockerfile
+  140  vi rstudio3/Dockerfile
+  141  dmesg
+  142   ls
+  143  pwd
+  144  ls -lart
+  145  cd jupyterDesktop
+  146  ls
+  147  sftp root@jupyterhub.haas.berkeley.edu
+  148  ls
+  149  vi README.md
+  150  vi Dockerfile
+  151  cd
+  152  jup1
+  153  bear
+  154  cd test
+  155  ls
+  156  cd Documents/GitHub/test
+  157  ls
+  158  cd jupyter-desktop-server
+  159  ls
+  160  vi Dockerfile
+  161  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  162  vi Dockerfile
+  163  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  164  vi Dockerfile
+  165  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  166   vi Dockerfile
+  167  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  168  vi Dockerfile
+  169  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  170  vi Dockerfile
+  171  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  172  ls
+  173  vi fix-permissions
+  174  vi fix-permissions
+  175  vi Dockerfile
+  176  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  177  vi Dockerfile
+  178  bash fix-permissions
+  179  vi Dockerfile
+  180  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  181  vi Dockerfile
+  182  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  183  vi Dockerfile
+  184  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  185  more fix-permissions
+  186  vi Dockerfile
+  187  more fix-permissions
+  188  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  189  vi Dockerfile
+  190  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  191  vi fix-permissions
+  192  vi fix-permissions
+  193  vi Dockerfile
+  194  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  195  vi Dockerfile
+  196  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  197  vi fix-permissions
+  198  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  199  vi fix-permissions
+  200  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  201  vi fix-permissions
+  202  vi Dockerfile
+  203  vi fix-permissions
+  204  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  205  vi fix-permissions
+  206  vi Dockerfile
+  207  vi fix-permissions
+  208  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  209  vi fix-permissions
+  210  vi Dockerfile
+  211  vi fix-permissions
+  212  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  213  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .ush
+  214  docker push montereytony/rstudio:yuvidesktop
+  215  docker push montereytony/rstudio:yuvidesktop
+  216  cd
+  217  ls
+  218  cd Documents/GitHub/jupyterDesktop
+  219  ls
+  220  more Dockerfile
+  221  cd ..
+  222  ls
+  223  ls -zlrt
+  224  ls -lart
+  225  cd te
+  226  cd test
+  227  sl
+  228  cd jupyter-desktop-server
+  229  ls
+  230  sftp root@jupyterhub.haas.berkeley.edu
+  231  winbox
+  232  mtr google.com
+  233  ping 207.177.254.9
+  234  ping 207.177.254.10
+  235  ping 207.177.254.1
+  236  ping 216.228.2.2
+  237  ping 207.177.237.2
+  238  mtr -n 216.228.2.2
+  239  winbox 216.228.1.165
+  240  whois 213.128.19.0
+  241  da6
+  242  da6
+  243  da3
+  244  da4
+  245  which da4
+  246  moressh -p 8022 root@da4.redshift.com
+  247  ssh -p 8022 root@da4.redshift.com
+  248  fn
+  249  ping fn.64bit.com
+  250  jup1
+  251  jup1
+  252  cd Downloads
+  253  ls -lart
+  254  sftp da1.redshift.com
+  255  which irix
+  256  scp -P8022 da1.redshift.com.zip root@wbox.redshift.com
+  257  scp -P8022 da1.redshift.com.zip root@wbox.redshift.com:/tmp
+  258  irix
+  259  da2
+  260  irix
+  261  irix
+  262  da6
+  263  da2
+  264  irix
+  265  da4
+  266  whois whois valleyhealthassociates.com
+  267  pwd
+  268  cd /var/
+  269  ls
+  270  vi .alasies
+  271  lz
+  272  ls
+  273  cd Documents/GitHub
+  274  ls
+  275  ls *stata*
+  276  cd stata-2021-jup
+  277  ls
+  278  more stata_kernel.conf
+  279  ls
+  280  ls
+  281  more README.md
+  282  vi Dockerfile
+  283  ls
+  284  cd ..
+  285  ls
+  286  ls -lart
+  287  cd stata-jupyter-master
+  288  ls
+  289  vi Dockerfile
+  290  cd
+  291  alias
+  292  jup1
+  293  cd Documents/GitHub
+  294  ls
+  295  ls -alrt
+  296  cd jupy
+  297  cd jupyD
+  298  cd jupyter
+  299  cd ../jupyterD
+  300  cd ../jupyterDesktop
+  301  ls
+  302  vi Dockerfile
+  303  vi Dockerfile
+  304  cd ..
+  305  ls
+  306  jup1
+  307  source .zshrc
+  308  cd
+  309  source .zshrc
+  310  jup1
+  311  jup1
+  312  jup1
+  313  jup1
+  314  jup1
+  315  jup1
+  316  jup1
+  317   irix
+  318  whois 185.143.223.17
+  319  whois 45.144.225.205
+  320  whois 78.128.113.98
+  321   irix
+  322   irix
+  323   irix
+  324   irix
+  325   irix
+  326   irix
+  327   irix
+  328   irix
+  329  jup1
+  330  jup1
+  331  cd
+  332  ls
+  333  cd Documents/GitHub
+  334  ls
+  335  cd ..
+  336  ls
+  337  cd ..
+  338  ls
+  339  su - gcp
+  340  su - gcp
+  341  ns
+  342  irix
+  343  da5
+  344  mtr wbox.redshift.com
+  345  mtr 8.8.8.8
+  346  cd Downloads
+  347  ls
+  348  ls -lart
+  349  cd da1.redshift.com
+  350  ls
+  351  cd ../archive
+  352  ls
+  353  ls -la
+  354  date
+  355  more cert.pem
+  356  ls
+  357  w
+  358  dmesg
+  359  ls
+  360  da1
+  361  da2
+  362  mailq
+  363  da5
+  364  jup1
+  365  cd Downloads
+  366  ls -alrt
+  367  cd ../Documents
+  368  ls
+  369  ls -laet
+  370  ls -lart
+  371  more VeriSignClass3ExtendedValidationSSLCA.crt
+  372   ls
+  373  ls -laet
+  374  cd ,,
+  375  cd ..
+  376  cd Downloads
+  377  ls -alrt
+  378  cd ../Documents
+  379  ls -alrt
+  380  mor elets-encrypt-r3.pem
+  381  more lets-encrypt-r3.pem
+  382   ls -lart
+  383  more lets-encrypt-r3-cross-signed.pem
+  384  cd ../Downloads
+  385  wget https://github.com/davidoster/letsencrypt-fast/archive/refs/heads/master.zip
+  386  which irix
+  387  sftp -P8022 root@wbox.redshift.com
+  388  irix
+  389  exit
+  390  da1
+  391  cd Downloads
+  392  ls
+  393  ls *217*
+  394  sftp -P8022 root@mail-fs4.redshift.com
+  395  host 216.228.2.49
+  396  mail-fs4
+  397  da2
+  398  cd Documents
+  399  ls -art
+  400  cd Change_passwords/
+  401  ls
+  402  more sshchpwd.exp
+  403  winbox &
+  404  mtr 216.228.1.100
+  405  mtr 216.228.1.101
+  406  mtr 216.228.1.101 -n
+  407  mtr 207.177.226.206
+  408  ssh ubnt@216.228.15.131
+  409  exit
+  410  exit
+  411  ls
+  412  cd Documents
+  413  more Dunes_routes
+  414  ls
+  415  pwd
+  416  find . -name "dunes*" -print
+  417  mv ./GitHub/haas-sql101-2/dunes.txt .
+  418  ls
+  419  more dunes.txt
+  420  dals
+  421  dmesg
+  422  top
+  423  cd Documents
+  424  ls 0lart
+  425  ls -lart
+  426  more Marriage\ Italian\ Style\ \(1964\)\ \[720p\]\ \[BluRay\]\ \[YTS.MX\].torrent
+  427  ssh root@fn.redshift.com
+  428  ssh root@fn.64bit.com
+  429  ssh -p8022 root@fn.64bit.com
+  430  ssh -p8022 root@fn.64bit.com
+  431  ssh -p8022 root@fn.64bit.com
+  432  cd Downloads
+  433  ls -lart
+  434  ls *217*
+  435  ls
+  436  ls -lart
+  437  cd
+  438  cd Documents/GitHub
+  439  ls
+  440  ls -lsrt
+  441  ls -lad *sql*
+  442  cd haas-sql101
+  443  ls
+  444  vi Dockerfile
+  445  docker build --network=host --rm --tag montereytony/sql101:jun23202101 .
+  446  docker images
+  447  docker rmi ee35ffcef97f 67b4c6651c15 38a462ced47f 64145dff562e c4c381246be3 c3c304cb4f22 ca1cb14d336a 
+  448  vi Dockerfile
+  449  docker build --network=host --rm --tag montereytony/sql101:jun23202101 .
+  450  vi Dockerfile
+  451  ls
+  452  cd ..
+  453  mkdir haas-sql101-2
+  454  cd haas-sql101-2
+  455  cp ../haas-sql101/* .
+  456  ls
+  457  cp -r ../haas-sql101/* .
+  458  ls
+  459  vi Dockerfile
+  460  docker build --network=host --rm --tag montereytony/sql101:jun23202101 .
+  461  vi Dockerfile
+  462  docker build --network=host --rm --tag montereytony/sql101:jun23202101 .
+  463  docker push montereytony/sql101:jun23202101
+  464  mail-fs4
+  465  docker push montereytony/sql101:jun23202101
+  466  ls
+  467  winbox
+  468  bg
+  469  vi dunes.txt
+  470  host greenes.com
+  471  ssh root@216.228.2.40
+  472  ssh -P 8022 root@216.228.2.40
+  473  ssh -P8022 root@216.228.2.40
+  474  ssh -p8022 root@216.228.2.40
+  475  ssh -p8022 root@216.228.2.40
+  476  cd Downloads
+  477  ls -lart
+  478  tar tzf mba217.tar.gz
+  479  irix
+  480  irix
+  481  da8
+  482  da8
+  483  da1
+  484  irix
+  485  l
+  486  cd
+  487  cd Documents
+  488  ls
+  489  cd GitHub
+  490  ls
+  491  ls -lart
+  492  cd jupyterDesktop
+  493  ls
+  494  vi Dockerfile
+  495  wget https://julialang-s3.julialang.org/bin/musl/x64/1.6/julia-1.6.1-musl-x86_64.tar.gz
+  496  tar tzf julia-1.6.1-musl-x86_64.tar.gz
+  497   cd julia-1.6.1-musl-x86_64.tar.gz
+  498  ls
+  499  vi Dockerfile
+  500  vi julia.jl
+  501  vi Dockerfile
+  502  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .ush
+  503  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  504  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .vi Dockerfile
+  505  vi Dockerfile
+  506  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  507  vi Dockerfile
+  508  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  509  vi Dockerfile
+  510  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  511  docker ps
+  512  dicker images
+  513  docker images
+  514  docker remove 748be2b17844
+  515  docker -rmi 748be2b17844 
+  516  docker rmi 748be2b17844 
+  517  docker rmi 748be2b17844 ee35ffcef97f
+  518  docker images
+  519  docker rmi 748be2b17844 ee35ffcef97f 67b4c6651c15
+  520  docker rm e7ff4322ed11
+  521  docker rmi e7ff4322ed11
+  522  docker rmi 9219a490d904
+  523  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  524  vi Dockerfile
+  525  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  526  vi Dockerfile
+  527  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  528  vi Dockerfile
+  529  Qv
+  530  vi Dockerfile
+  531  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  532  vi Dockerfile
+  533  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  534  1v
+  535  vi Dockerfile
+  536  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  537  vi Dockerfile
+  538  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  539  ls
+  540  vi environment.yml
+  541  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  542  irix
+  543  irix
+  544  irix
+  545  cd Documents/Change_passwords
+  546  ls
+  547  more IPs
+  548  more expexct2.exp
+  549  vi expexct2.exp
+  550  ls
+  551  more sshchpwd.exp
+  552  more sshchpwd.exp
+  553  ls
+  554  more sshchpwd.exp_orig
+  555  vi expexct2.exp
+  556  ls
+  557  more IPs
+  558  vi expexct2.exp
+  559  ./expexct2.exp ubnt@207.177.226.196
+  560  cd Documents/GitHub/jupyterDesktop
+  561  ls
+  562  vi julia.jl
+  563  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop .
+  564  docker push montereytony/sql101:jun23202101
+  565  ps -ef | grep push
+  566  kill -9 49805 49802
+  567  ps -ef | grep push
+  568  cd Documents/GitHub/jupyterDesktop
+  569  ls
+  570  vi Dockerfile
+  571  grep perl ../*/Dockerfile
+  572  vi Dockerfile
+  573  vi Dockerfile
+  574  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7 .
+  575   pwd
+  576  vi Dockerfile
+  577  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop6 .
+  578  vi Dockerfile
+  579  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop6 .
+  580  ls
+  581  df
+  582  mail-fs4
+  583  jup1
+  584  jup1
+  585  irix
+  586  cd Downloads
+  587  ls
+  588  cd Justice.League.Snyders.Cut.2021.HDRip.X264-WORM
+  589  ls
+  590  sftp root@fn.64bit.com
+  591  sftp -P8022 root@fn.64bit.com
+  592  ssh fn.64bt.com
+  593  ssh fn.64bit.com
+  594  ssh plex.64bit.com
+  595  sftp -P8022 tony@fn.64bit.com
+  596  sftp -P8022 tony@fn.64bit.com
+  597  sftp -P8022 tony@fn.64bit.com
+  598  ssh -p8022 tony@fn.64bit.com
+  599  cd cd .ssh
+  600  cd
+  601  cd .ssh
+  602  ls
+  603  more id_rsa.pub
+  604  da5
+  605  da5
+  606  da5
+  607  ot 76.72.155.2
+  608  host 76.72.155.2
+  609  host cricelli.com
+  610  whois 23.99.97.154
+  611  cd Downloads
+  612  ls -alrt
+  613  mv Rocket\ Internet\ Free\ Website\ Template\ -\ Free-CSS.com.zip raz.zip
+  614  scp raz.zip root@da5.redshift.com:/tmp
+  615  scp -P 8022 raz.zip root@da5.redshift.com:/tmp
+  616  cd Documents
+  617  ls -lart
+  618  ipUls -lad *ip*
+  619  ls -la *ip*
+  620  ls -lad *IP*
+  621  cd
+  622  cd Documents
+  623  grep 207.177 *
+  624  ls -alrt
+  625  more ips_smtp.txt
+  626  vi ips_smtp.txt
+  627  telnet da5.redshift.com 25
+  628  da8
+  629  da8
+  630  da8
+  631  da8
+  632  da8
+  633  irix
+  634  irix
+  635  ping google.com
+  636  irix
+  637  mailq
+  638  urux
+  639  irix
+  640  irix
+  641  mailq
+  642  irix
+  643  cd Documents
+  644  vi firewall.txt
+  645  sup
+  646  irix
+  647   exit
+  648  irix
+  649  irix
+  650  whois rwient.com
+  651  host -t mx rwient.com DNS1.PROSECUREHOSTING.COM
+  652  host -t mx rwient.com DNS2.PROSECUREHOSTING.COM
+  653  host mail.rwient.com.
+  654  telnet 
+  655  ssh -p 8022 root@216.228.2.174
+  656  ssh -p 22 root@216.228.2.174
+  657  irix
+  658  ssh -p8022 tony@fn.64bit.com
+  659  irix
+  660  ssh -p8022 tony@fn.64bit.com
+  661  whois cricelli.com
+  662  host cricelli.com
+  663  ssh root@216.228.2.97
+  664  ssh root@216.228.2.97 -p 8022
+  665  da4
+  666  da1
+  667  da9
+  668  da8
+  669  da6
+  670  da5
+  671  da4
+  672  da3
+  673  da1
+  674  irix
+  675  cd Documents/
+  676  cd Change_passwords
+  677  ls
+  678  more new
+  679  ls
+  680  more IPs
+  681  ./sshchpwd.exp ubnt@207.177.226.194
+  682  vi ch.pl
+  683  vi ch.pl
+  684  perl ch.pl
+  685  vi ch.pl
+  686  perl ch.pl
+  687  vi ch.pl
+  688  perl ch.pl
+  689  vi ch.pl
+  690  ls
+  691  ls
+  692  vi IPs
+  693  vi sshchpwd.exp
+  694  ls -la
+  695  chmod 755 expexct2.exp
+  696  more IPs
+  697  ls -la
+  698  more IPs
+  699  ./expexct2.exp 207.177.226.194
+  700  vi sshchpwd.exp
+  701  ./expexct2.exp ubnt@207.177.226.194
+  702  vi sshchpwd.exp
+  703  ./expexct2.exp ubnt@207.177.226.194
+  704  ./expexct2.exp ubnt@207.177.226.194
+  705  vi sshchpwd.exp
+  706  ./expexct2.exp ubnt@207.177.226.194
+  707  ssh ubnt@207.177.226.194
+  708  ssh ubnt@207.177.226.196
+  709  ls
+  710  more expexct2.exp
+  711  vi sshchpwd.exp
+  712  ssh ubnt@207.177.226.194
+  713  ls
+  714  vi expexct2.exp
+  715  ./expexct2.exp ubnt@207.177.226.196
+  716  vi expexct2.exp
+  717  ssh ubnt@207.177.226.196
+  718  vi expexct2.exp
+  719  ssh ubnt@207.177.226.196
+  720  ./expexct2.exp ubnt@207.177.226.196
+  721  vi expexct2.exp
+  722  ./expexct2.exp ubnt@207.177.226.196
+  723  vi expexct2.exp
+  724  ./expexct2.exp ubnt@207.177.226.196
+  725  vi expexct2.exp
+  726  ssh ubnt@207.177.226.196
+  727  ./expexct2.exp ubnt@207.177.226.196
+  728  vi expexct2.exp
+  729  ssh ubnt@207.177.226.196
+  730  vi expexct2.exp
+  731  grep ubnt /etc/passwd | awk -F: \'{print "sed -i \"s/^users.1.password.*$/users.1.password=" $2 "\/\" /tmp/system.cfg"}\'
+  732  grep ubnt /etc/passwd | awk -F: '{print "sed -i \"s/^users.1.password.*$/users.1.password=" $2 "\/\" /tmp/system.cfg"}'
+  733  cd
+  734  cd Desktop
+  735  ls
+  736  ls -lart
+  737  mv "Screen Shot 2021-06-28 at 10.22.38 AM.png" rocket.png
+  738  scp -P8022 rocket.png root@da5.redshift.com:/tmp
+  739  whois 181.33.162.195
+  740  sudo su
+  741  sudo su
+  742  bear
+  743  irix
+  744  su - gcp
+  745  su - gcp
+  746  bear
+  747  jup1
+  748  irix
+  749  irix
+  750  bear
+  751  bear
+  752  yogi
+  753  yogi
+  754  ipconfig
+  755  irix
+  756  ping 192.168.1.20
+  757  ifconfig -a | grep 192
+  758  ping 192.168.1.20
+  759  ping 1.1.1.1
+  760  ping 1.1.1.1
+  761  ping 1.1.1.1
+  762  ping 1.1.1.1
+  763  ping 192.168.1.20
+  764  ping 192.168.0.10
+  765  ping 192.168.1.20
+  766  host time.apple.com
+  767  host time.windows.com
+  768  host time.windows.com
+  769  ping 192.168.1.20
+  770  ping 1.1.1.1
+  771  ping 192.168.1.20
+  772  ping 192.168.1.20
+  773  ifconfig -a | grep 10
+  774  ping 1.1.1.1
+  775  ipcomfig
+  776  ifconfig -a | grep 192
+  777  cd
+  778  jup1
+  779  irix
+  780  irix
+  781  da1
+  782  irix
+  783  irix
+  784  irix
+  785  irix
+  786  irix
+  787  irix
+  788  irix
+  789  cd
+  790  hitory | grep push
+  791  history | grep push
+  792  history | grep pull
+  793  ls -lart
+  794  cd Documents
+  795  cd GitHub
+  796  ls
+  797  ls -lart
+  798  cd jupyterDesktop
+  799  history 0
+  800  history 0 | grep push
+  801  history | grep buil
+  802  history 0 | grep buil
+  803  ls
+  804  vi Dockerfile
+  805  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7
+  806  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7 .
+  807  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7 .
+  808  vi Dockerfile
+  809  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7 .
+  810  vi Dockerfile
+  811  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7 .
+  812  vi Dockerfile
+  813  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7 .
+  814  vi Dockerfile
+  815  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7 .
+  816  vi Dockerfile
+  817  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7 .
+  818  docker rmi $(docker images -q)\ndocker rm -v $(docker ps -qa)\n
+  819  docker system prune
+  820  docker system prune\n
+  821  ls
+  822  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7 .
+  823  vi Dockerfile
+  824  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7 .
+  825  vi Dockerfile
+  826  vi Dockerfile
+  827  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7 .
+  828  vi Dockerfile
+  829  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7 .
+  830  docker push montereytony/rstudio:yuvidesktop7
+  831  docker push montereytony/rstudio:yuvidesktop7
+  832  vi Dockerfile
+  833  ls
+  834  cd ..
+  835  cd test
+  836  ls
+  837  cd jupyter-desktop-server
+  838  ls
+  839  vi Dockerfile
+  840  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7 .
+  841  vi Dockerfile
+  842  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop7 .
+  843  docker push montereytony/rstudio:yuvidesktop7
+  844  whois 216.228.2.24
+  845  exit
+  846  irix
+  847  cd Documents/GitHub/test
+  848  ls
+  849  cd jupyter-desktop-server
+  850  ls
+  851  grep nbconvert *
+  852  grep -r nbconv .
+  853  exit
+  854  top
+  855  jup1
+  856  jup1
+  857  irix
+  858  sudo su
+  859  su - gcp
+  860  sudo su
+  861  ping 10.106.121.246
+  862  ping hprm.haastech.org
+  863  ping h2.haastech.org
+  864  cd Documents/GitHub/jupyterDesktop
+  865  ls
+  866  vi Dockerfile
+  867  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop9
+  868  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop9 .
+  869  docker build --network=host --rm --tag montereytony/rstudio:yuvidesktop9 .
+  870  docker push montereytony/rstudio:yuvidesktop9
+  871  history 0
+  872  history 0>th

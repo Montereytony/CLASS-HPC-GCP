@@ -1,0 +1,19 @@
+#https://www.linuxtechi.com/configure-nfs-persistent-volume-kubernetes/
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv-ewmba263-11-spring-2022
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /home/ewmba263-11/spring-2022
+    server: 10.128.0.10

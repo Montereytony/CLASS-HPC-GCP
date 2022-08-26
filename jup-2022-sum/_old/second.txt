@@ -1,0 +1,8 @@
+WARNING: Your Pod address range (`--cluster-ipv4-cidr`) can accommodate at most 1008 node(s).
+Creating cluster notebook-test in us-central1-b... Cluster is being health-checked (master is healthy)...⠼
+Creating cluster notebook-test in us-central1-b... Cluster is being health-checked (master is healthy)...done.
+Created [https://container.googleapis.com/v1/projects/haas-jupyter-jub/zones/us-central1-b/clusters/notebook-test].
+To inspect the contents of your cluster, go to: https://console.cloud.google.com/kubernetes/workload_/gcloud/us-central1-b/notebook-test?project=haas-jupyter-jub
+kubeconfig entry generated for notebook-test.
+NAME           LOCATION       MASTER_VERSION   MASTER_IP     MACHINE_TYPE  NODE_VERSION     NUM_NODES  STATUS
+notebook-test  us-central1-b  1.16.13-gke.401  34.71.245.25  n1-highmem-2  1.16.13-gke.401  3          RUNNING

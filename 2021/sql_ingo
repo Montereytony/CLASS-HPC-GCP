@@ -1,0 +1,22 @@
+
+ Db name: tlee
+ user name: tlee
+ password: PA55_tlee
+IP address: 10.103.128.3
+
+I used the following command to test connections to it:
+
+%sql mysql+pymysql://tlee:PA55_tlee@10.103.128.3:3306/tlee
+
+
+mysql -utlee -pPA55_tlee -h 10.103.128.3:3306/tlee
+
+
+GRANT SELECT ON sql101.* TO "jupyter";
+GRANT ALL privileges ON sql101.* TO "roopesh";
+
+GRANT SELECT ON haas_sql_class.* TO "jupyter";
+GRANT ALL privileges ON haas_sql_class.* TO "roopesh";
+
+
+

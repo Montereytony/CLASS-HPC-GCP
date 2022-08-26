@@ -1,0 +1,87 @@
+hub:
+  cookieSecret: "430bde870fef0d000b2a924743ab7d3a5d1c72cc134aff45b1167a255fc87fb7"
+  extraConfig: |
+    c.Spawner.http_timeout = 3600
+    c.Spawner.start_timeout = 3600
+  db:
+    type: sqlite-memory
+#    upgrade: true
+proxy:
+  secretToken: "55b2458a1e9094d5ee345ab099ff2b50ad06ae02a4f71a213d6dbb6e59371588"
+  https:
+    enabled: true
+    hosts:
+      - haasongcp1.64bit.com
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 35.239.99.44
+prePuller:
+  enabled: false
+#scheduling:
+#  userScheduler:
+#    enabled: true
+#  podPriority:
+#    enabled: true
+#  userPlaceholder:
+#    enabled: true
+#    replicas: 4
+#  userPods:
+#    nodeAffinity:
+#      matchNodePurpose: require
+#cull:
+#  enabled: true
+#  timeout: 3600
+#  every: 300
+singleuser:
+  storage:
+    dynamic:
+      storageClass: standard
+  image:
+    name: montereytony/ugba147
+    tag: ugba147-Spring-2021-5
+#    tag: ugba88-Spring-2020-4
+  memory:
+    limit: 4G
+    guarantee: .25G
+  cpu:
+    limit: 4
+    guarantee: 0.25
+  storage:
+    capacity: 5Gi
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p /home/jovyan/my-work;
+            mkdir -p /home/jovyan/.jupyter;
+            mkdir -p /home/jovyan/.jupyter/custom;
+            mkdir -p /home/jovyan/.jupyter/nbconfig;
+            cp -n /tmp/notebook.json /home/jovyan/.jupyter/nbconfig;
+            cp -n /tmp/tree.json /home/jovyan/.jupyter/nbconfig;
+            cp -n /tmp/common.json /home/jovyan/.jupyter/nbconfig;
+            cp -n /tmp/custom.css /home/jovyan/.jupyter/custom.css;
+            cp -n /tmp/custom.css /home/jovyan/.jupyter/custom/custom.css;
+            gitpuller https://github.com/rahuntsinger/ugba147test main shared
+#  storage:
+#    dynamic:
+#      storageClass: jupyterhub-user-ssd
+auth:
+  type: google
+  google:
+    clientId: "473445367612-rpv7sul7vp2kf799auq6k71g8nk2lmas.apps.googleusercontent.com"
+    clientSecret: "OOEtY_e6SI8r5QyRzXbN14Q_"
+    callbackUrl: "https://haasongcp1.64bit.com/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+#
+#Ask about GCB to get perms synced
+#
+  admin:
+    users:
+      - tony_cricelli
+      - rhuntsinger
+#c.GoogleOAuthenticator.hosted_domain = [berkeley.edu]

@@ -1,0 +1,10 @@
+bash EWMBA217/remove_ewmba217.sh
+bash EWMBA267-11/remove_ewmba267-11.sh
+bash EWMBA290T-12/remove_ewmba290T-12.sh
+bash EWMBA257/remove_ewmba257.sh
+bash MBA217/remove_mba217.sh
+bash MBA267-11/remove_mba267-11.sh
+bash MBA290T-12/remove_mba290T-12.sh
+bash MFE230O/remove_mfe230o.sh
+bash UGBA147/remove_ugba147.sh
+bash UGBA88/remove_ugba88.sh

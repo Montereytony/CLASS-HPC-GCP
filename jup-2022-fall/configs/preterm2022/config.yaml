@@ -1,0 +1,267 @@
+#
+#
+# Tony Cricelli 2022
+#  Testing Yaml File for use with GCP Autopilot
+#
+#
+scheduling:
+  userScheduler:
+    enabled: true
+  podPriority:
+    enabled: true
+  userPlaceholder:
+    enabled: true
+    replicas: 4
+#cull:
+#  enabled: true
+#  timeout: 3600
+#  every: 300
+prePuller:
+  continuous:
+    enabled: false
+  hook:
+    enabled: false
+singleuser:
+  cloudMetadata:
+    blockWithIptables: false
+  image:
+    name: montereytony/ugba147
+    tag: tensorflow-Sprint-2020
+#     name: montereytony/ugba147-2
+#     tag: latest
+#    name: montereytony/mba247-11
+#    tag: local4
+#    name: montereytony/ugba-rah-sp22
+#    tag: jup2-02
+  defaultUrl: "/tree"
+  memory:
+    limit: 2G
+    guarantee: 1G
+  cpu:
+    limit: 1
+    guarantee: .25
+  storage:
+    type: static
+    storageClass: "class-preterm2022"
+    static:
+      pvcName: preterm2022-pvc
+      subPath: '{username}'
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+        readOnly: true
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: preterm2022-pvc-sh
+  extraEnv:
+    CHOWN_HOME: "yes"
+  uid: 1022
+  fsGid: 1023
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work
+proxy:
+  secretToken: "a10101010109bf1431f96de9b40b9306b0a9d67568529909c8152cf871000fbb"
+  https:
+    enabled: true
+    hosts:
+      - preterm2022.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 34.71.203.188
+#  traefik:
+#    extraInitContainers:
+#      # This startup delay can help the k8s container network interface setup
+#      # network routing of traffic to the pod, which is essential for the ACME
+#      # challenge submitted by Traefik on startup to acquire a TLS certificate.
+#      # Sleeping for 7 seconds has been consistently sufficient to avoid issues
+#      # in GKE when this workaround was explored initially for GKE.
+#      #
+#      - name: startup-delay
+#        image: busybox:stable
+#        command: ["sh", "-c", "sleep 10"]
+jupyterhub:
+  hub:
+    # See: https://jupyterhub.readthedocs.io/en/stable/api/app.html
+    activity_resolution: 120  # Default 30.
+    hub_activity_interval: 600  # Default 300.
+    last_activity_interval: 300  # Default 300, 60 in z2jh helm chart.
+    init_spawners_timeout: 1  # Default 10
+hub:
+  cookieSecret: "0101010103006d8f4efc7dcd2822a113772849327bceec4e313f3400000f29aa"
+  db:
+    type: sqlite-memory
+  extraConfig:
+    announcements: |
+      c.JupyterHub.template_vars.update({ 'announcement': '<br/>Welcome to the FTMBA Core Workshops<br/> Please report any issues to  tony@haas.berkeley.edu', })
+  config:
+    DummyAuthenticator:
+      password: Welcome_FTMBA
+    JupyterHub:
+      authenticator_class: dummy
+    Authenticator:
+      admin_users:
+        - tony
+        - thomasyl
+      allowed_users:
+        - zane
+        - pchew
+        - thomasyl
+        - nadiaabbasi
+        - Safiye
+        - adebola.adeniyi
+        - yerikho_adi
+        - aafrick
+        - meredith_albion
+        - jayshawn.anderson
+        - Delphine
+        - nabilla_ariffin
+        - ryan_armanda
+        - himanshi_arora
+        - akansha_ashokan
+        - dbadih
+        - alexberry
+        - Santiago
+        - erik_better
+        - ananjan
+        - danielbillostas
+        - kelly_blackwell
+        - michaelblumenthal
+        - scallander16
+        - lindsaychan
+        - terence_chan
+        - pam.chan
+        - whitner_chase
+        - bchen32
+        - nickchen
+        - shuoming_chen
+        - charles.christou
+        - anya_clowers
+        - julia_cohen
+        - amanda_cornfeld
+        - jonathan_cullom
+        - alyssa.dcunha
+        - timothy.daniel
+        - tarun_davuluri
+        - albertdeng
+        - jean-michel.depew
+        - kyle_dickey
+        - donicholas
+        - angelina_donhoff
+        - patrick_drown
+        - Emilio
+        - kelsey_ebeling
+        - marianaelmais
+        - j.ewell
+        - alexandra_ferreira
+        - Paola
+        - yg6nk
+        - james.gleason
+        - teogumusoglu
+        - andrew_haggerty
+        - savannah_hall
+        - jeffreyharris
+        - emily.hawkins
+        - kristen_hawley
+        - rebeccahaynes
+        - martinho
+        - caitlin_hodes
+        - elizabeth_hoerauf
+        - hillary_hoffstein
+        - brian_hum
+        - phil.ickes
+        - alex.im
+        - ryuji_iwata
+        - mading_jackson
+        - cjacobsen
+        - xaviersjefferson
+        - caroline_jimenez
+        - Hyung
+        - alex_jozefov
+        - jake_justice
+        - irene.kao
+        - jules_kentgens
+        - brian_khan
+        - anna.kim
+        - christine_hj_kim
+        - amarisskim
+        - Daniel
+        - mlaframb
+        - jk_lee
+        - lisa.jia.li
+        - heidi.cozby
+        - meg_machida
+        - samuel_magnuson
+        - (Lia)
+        - kristina_martinez
+        - Mathis
+        - kmcgon
+        - sara_mich
+        - albert.mii
+        - alison_montenegro
+        - jack_moore
+        - anica_nangia
+        - Neo
+        - ade_nosakhare
+        - nathan_obermuller
+        - taise.okubara
+        - andrew_packer
+        - arnaud_paquet
+        - tanishapatni
+        - yannic_peters
+        - dhananjay_prahladka
+        - jack.pruitt
+        - will.quinn
+        - vringeard
+        - colbysameshima
+        - rishisangani
+        - brunosanovicz
+        - gregorysantoro
+        - hannah.schlacter
+        - austin_schoff
+        - cschrier
+        - jahnavi_shah
+        - varun_shetty
+        - tianyin_shi
+        - abshrestha
+        - basim_siddiqui
+        - tanaz_sidhu
+        - ariana_simone
+        - namit.singal
+        - shubham_singhal
+        - rebeca_sousa
+        - juliasullivan
+        - takaishi.kosuke
+        - steven_tan
+        - korawat.t
+        - anupama_tej
+        - Meer
+        - vp91
+        - natia_vatsadze
+        - tvosburgh
+        - angelawang.mba
+        - ellaweng
+        - diarra_white
+        - lucywooldridge
+        - shogo.yakame
+        - alan_yang
+        - doris.yuan
+        - nickyz
+        - frankzhang95
+        - rui_zhong
+        - he_michelle_zhu
+        - lauren_zinser
+        - josephine.wang
+        - emilio_duron
+        - albert.zheng
+        - menanteau_moolman
+        - ximena.vega
+        - madhu_gupta
+        - d.klein.khafif

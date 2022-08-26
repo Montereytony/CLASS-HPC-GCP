@@ -1,0 +1,19 @@
+#!/bin/sh
+#export JAVA_HOME=/usr/lib/jvm/jre-1.7.0-openjdk.x86_64
+#export JAVA_HOME="/bulk/apps/SASHome/jre1.6.0_21"
+#export JAVA_HOME=" /bulk/apps/SASHome/jre1.6.0_21"
+
+#echo  "  "
+#echo  "  "
+#echo  "SAS is not available right now. "
+#echo  "  "
+#echo  "  "
+#echo  " Tony@Haas.Berkeley.Edu"
+#echo  " 831-236-6692 "
+#echo  "  "
+#echo  "  "
+
+#exit
+BSUB="bsub -Is "
+PROG='/bulk/apps/SAS/SAS94/SASHome/SASFoundation/9.4/sas'
+$BSUB  $PROG $*

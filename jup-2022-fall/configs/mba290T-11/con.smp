@@ -1,0 +1,59 @@
+#
+#
+# Tony Cricelli 2022
+#  Testing Yaml File for use with GCP Autopilot
+#
+#
+scheduling:
+  podPriority:
+    enabled: true
+  userPlaceholder:
+    enabled: true
+    replicas: 3
+#  userPods:
+#    nodeAffinity:
+#      matchNodePurpose: require
+#cull:
+#  enabled: true
+#  users: false
+#  timeout: 7200
+#  every: 1200
+prePuller:
+  continuous:
+    enabled: false
+  hook:
+    enabled: false
+singleuser:
+  cloudMetadata:
+    blockWithIptables: false
+  image:
+    name: montereytony/ugba-rah-sp22
+    tag: jup2-02
+  memory:
+    limit: 2G
+    guarantee: 1G
+  cpu:
+    limit: .50
+    guarantee: .25
+  storage:
+    type: static
+    storageClass: "manual2"
+    static:
+      pvcName: homer1
+      subPath: '{username}'
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+        readOnly: true
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: pv0004
+# lifecycleHooks:
+#   postStart:
+#     exec:
+#       command:
+#         - "sh"
+#         - "-c"
+#         - >
+#           mkdir -p my-work;

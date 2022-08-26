@@ -1,0 +1,107 @@
+#
+#
+# Tony Cricelli 2022
+#  Testing Yaml File for use with GCP Autopilot
+#
+#
+scheduling:
+  podPriority:
+    enabled: true
+  userPlaceholder:
+    enabled: true
+    replicas: 3
+#  userPods:
+#    nodeAffinity:
+#      matchNodePurpose: require
+#cull:
+#  enabled: true
+#  users: false
+#  timeout: 7200
+#  every: 1200
+prePuller:
+  continuous:
+    enabled: true
+  hook:
+    enabled: false
+singleuser:
+  image:
+     name: jupyter/r-notebook
+     tag: latest
+#    name: jupyter/minimal-notebook
+#    tag: latest
+#  profileList:
+#    - display_name: "Minimal environment"
+#      description: "To avoid too much bells and whistles: Python."
+#      default: true
+#    - display_name: "R Datascience environment"
+#      description: "R"
+#      kubespawner_override:
+#        image: jupyter/r-notebook:latest
+  cloudMetadata:
+    blockWithIptables: false
+  memory:
+    limit: 6G
+    guarantee: 1G
+  cpu:
+    limit: 2.00
+    guarantee: .25
+  storage:
+    type: static
+    storageClass: "class-ugba88"
+    static:
+      pvcName: ugba88-pvc
+      subPath: '{username}'
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+        readOnly: true
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: ugba88-pvc-sh
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work;
+#            /bin/sh /tmp/add_files.sh;
+proxy:
+  secretToken: "29522b9402d131b30281e0a9de82d3c1576910aab0b33dc1d7c9366882dde0ae"
+  https:
+    enabled: true
+    hosts:
+      - ugba88-2022-fall.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 34.67.235.213
+jupyterhub:
+  hub:
+    # See: https://jupyterhub.readthedocs.io/en/stable/api/app.html
+    activity_resolution: 120  # Default 30.
+    hub_activity_interval: 600  # Default 300.
+    last_activity_interval: 300  # Default 300, 60 in z2jh helm chart.
+    init_spawners_timeout: 1  # Default 10
+hub:
+  cookieSecret: "14dc0d7c0d5494ce10125ab3416294df261a51ac4c2757d5ba8dc53276b725df"
+  db:
+    type: sqlite-memory
+  config:
+    GoogleOAuthenticator:
+      client_id: 152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com
+      client_secret: jXNHCWRcYWfXW1Y9HV0zhUuZ
+      oauth_callback_url: https://ugba88-2022-fall.haastech.org/hub/oauth_callback
+      hosted_domain:
+        - berkeley.edu
+      login_service: your Berkeley Account.
+    JupyterHub:
+      authenticator_class: google
+    Authenticator:
+      admin_users:
+        - tony_cricelli
+        - rhuntsinger
+      allowed_users:
+        - yoshikim1

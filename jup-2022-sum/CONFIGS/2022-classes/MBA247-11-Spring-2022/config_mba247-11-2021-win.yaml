@@ -1,0 +1,168 @@
+hub:
+  cookieSecret: "0ccc8f63b31ee1a9c401e17728bbd8def7c4411fe1aa9e2d49f23addccca38e3"
+  db:
+    type: sqlite-memory
+  extraConfig:
+    announcements: |
+      c.JupyterHub.template_vars.update({ 'announcement': 'This hub is maintained by <br> <A href="mailto:tony_cricelli@berkeley.edu"> tony_cricelli@berkeley.edu </A> <br/> This hub is being turned off by 06/30/2022. <br/> Please make sure you have downloaded all of your files.', })
+proxy:
+      c.Spawner.cmd=["jupyter-labhub"]
+proxy:
+  secretToken: "e71fa6b10b7f89e7324571ae13afa0cb5431369499b6b4955b955abf8bbb1ece"
+  https:
+    enabled: true
+    hosts:
+      - mba247-11.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 34.67.223.130
+prePuller:
+  hook:
+    enabled: false
+singleuser:
+  image:
+    name: montereytony/tutorials
+    tag: local2
+#    name: montereytony/tutorials
+#    tag: local-1
+#    name: montereytony/mba247-11-fall-2021
+#    tag: local1
+#    name: montereytony/mba247-11
+#    tag: jup2
+#    name: montereytony/ugba199-fall-2021
+#    tag: local1
+#    name: montereytony/mba249-rstudio
+#    tag: test4
+#    name: montereytony/math-server-docker
+#    tag: test1
+#    name: montereytony/datahub-images-default
+#    tag: test1
+#    name: montereytony/datahub-prod-deployments-r-image
+#    tag: test1
+#    name: montereytony/rstudio-notebook-trent
+#    tag: test3
+#    tag: latest
+#    name: montereytony/rstudio
+#    tag: haas
+#    name: montereytony/rstudio-custom
+#    tag: test3
+#    name: montereytony/rstudio-haas
+#    tag: test2
+#    name: montereytony/rstudio2
+#    tag: test2
+#    name: montereytony/yuli
+#    tag: test2
+  memory:
+    limit: 2G
+    guarantee: 2G
+  cpu:
+    limit: 1
+    guarantee: 1
+  storage:
+    capacity: 10Gi
+    dynamic:
+      storageClass: standard
+#      storageClass: jupyterhub-user-ssd
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: nfs-pv-mba247.11-win
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+        readOnly: True
+#  lifecycleHooks:
+#    postStart:
+#      exec:
+#        command:
+#          - "sh"
+#          - "-c"
+#          - >
+#            mkdir -p my-work
+#            gitpuller https://github.com/rahuntsinger/ugba147test main shared
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://mba247-11.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  admin:
+    users:
+      - tony_cricelli
+      - luyiyang
+      - daniel_furman
+  whitelist:
+    users:
+      - tony_cricelli
+      - luyiyang
+      - daniel_furman
+      - ngoangie
+      - claudia.n.aten
+      - rohan.venkatesh
+      - sghafur
+      - nitya_sundareswaran
+      - reeshav_kumar
+      - richard_bian
+      - sitaram.gollapudi
+      - charlie_sauter
+      - gbode
+      - justin.rowe
+      - helen_hatch
+      - vivek_cholleti
+      - cbarlow1206
+      - dineshprasanth
+      - himabindu_alwal
+      - ocean.van
+      - peter_thai
+      - lifan_wang
+      - lu_xu
+      - hchiang1
+      - jack.woodruff
+      - nick_anderson
+      - shiva
+      - moonskim
+      - spencerponce
+      - saira.rahman
+      - shaurya.kalsi
+      - kellyychu
+      - lsorci316
+      - drew_ruiz
+      - zexi.gong
+      - nori_terashima
+      - jphilip
+      - scammerhorn
+      - grace_brittan
+      - alex_hamilton
+      - akercarolyn
+      - abhishek_saraf
+      - shannon_gao
+      - rui_huang
+      - b_riffenburghkirby
+      - lisa.chen
+      - tlal
+      - swastika_palit
+      - kaibana
+      - yunxuan_jiang
+      - hiro_kotegawa
+      - candiceke
+      - marcelo_ferreira
+      - christina_hsu
+      - zareen_khayrattee
+      - aleksandrabogoevska
+      - winston.goan
+      - alejandra_vergara
+      - patrick_yang
+      - priyanka_atreya
+      - sboyakhchian
+      - vaibhavanand
+      - joseph_aharon
+      - david_zambrano
+      - bobni
+      - yigewang
+      - aflach
+      - giovanni.rivera
+      - varija_raj
+      - zhuguang

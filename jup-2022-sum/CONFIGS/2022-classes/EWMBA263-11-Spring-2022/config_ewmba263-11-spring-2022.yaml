@@ -1,0 +1,92 @@
+proxy:
+  secretToken: "54489077d9f6ef39da9545e9e90c47e99905ba26d0453bdf44a10f217844fe1d"
+  https:
+    enabled: true
+    hosts:
+      - ewmba263-11-spring-2022.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 34.136.97.149
+cull:
+  enabled: true
+  users: false
+  timeout: 3600
+  every: 600
+prePuller:
+  hook:
+    enabled: false
+singleuser:
+  image:
+    pullPolicy: IfNotPresent
+    name: montereytony/mba200a
+    tag: jup2-9
+  memory:
+    limit: 2G
+    guarantee: .5G
+  cpu:
+    limit: 1
+    guarantee: .25
+  storage:
+    capacity: 1Gi
+    dynamic:
+      storageClass: standard
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: nfs-pv-ewmba263-11-spring-2022
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+        readOnly: True
+  lifecycleHooks:
+    postStart:
+      exec:
+        command: ["/bin/sh", "-c", "/tmp/add_files.sh;mkdir -p my-work"]
+hub:
+  cookieSecret: "873fd8da2eed528a905cdc8778122fdaa929c1feb7b80539055a2fd7c63b4aad"
+  db:
+    type: sqlite-memory
+  config:
+    GoogleOAuthenticator:
+      client_id: 152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com
+      client_secret: jXNHCWRcYWfXW1Y9HV0zhUuZ
+      hosted_domain:
+      - berkeley.edu
+      login_service: your Berkeley Account.
+      oauth_callback_url: https://ewmba263-11-spring-2022.haastech.org/hub/oauth_callback
+    JupyterHub:
+      authenticator_class: google
+  Authenticator:
+    admin_users:
+      - tony_cricelli
+      - olivia.natan
+    allowed_users:
+      - tony_cricelli
+      - olivia.natan
+      - gustavo.gonzalezjr
+      - dszykier
+      - seth_yu
+      - akalidindi
+      - anthony.rivadeneira
+      - jesse.manders
+      - yaoyang10
+      - joshua_minnix
+      - sankar.venkiteswaran
+      - arjun.bangre
+      - alex.innocent
+      - joseph.young
+      - rajat_verma
+      - ryanjohnsn
+      - adam_ward
+      - yung_liao
+      - sarvesh_bhasin
+      - lloyddsilva
+      - zixuan_chen
+      - ssrinivas
+      - nikitaconcessao
+      - lu_xu
+      - jpcalkins
+      - kyle.schoenberger
+      - joni_chan
+      - nuvi_njinimbam

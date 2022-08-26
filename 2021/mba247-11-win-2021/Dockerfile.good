@@ -1,0 +1,288 @@
+# Build: docker build --rm --tag ds-test .
+# Push: docker tag my_image $DOCKER_ID_USER/my_image
+# git status
+# git commit -m "comments Ubuntu and R to 3.4.2 "
+# git push
+
+FROM jupyter/datascience-notebook:latest
+USER root
+RUN ln -s /bin/tar /bin/gtar   && apt-get -y update && apt-get -y upgrade &&  rm -rf /var/cache/apt/archives/*
+RUN apt-get -y install libmpfr-dev
+RUN conda install \
+        gcc_linux-64 \
+        gfortran_linux-64 \
+        r-essentials \
+        r-htmlwidgets \
+        r-gridExtra \
+        r-e1071  \
+        r-rgl \
+        r-xlsxjars \
+        r-xlsx \
+        r-aer  \
+        r-png \
+        r-rJava \
+        r-devtools \
+        r-digest \
+        r-evaluate \
+        r-memoise  \
+        r-withr  \
+        r-irdisplay \
+        r-r6  \
+        r-irkernel \
+        r-jsonlite\
+        r-lubridate\
+        r-magrittr\
+        r-rcpp \
+        r-repr \
+        r-stringi\
+        r-stringr\
+        r-processx\
+        r-tidyverse\
+        r-readr  \
+        ipython \
+        numpy \
+        pandas \
+    	plotnine \
+    	matplotlib \
+    	seaborn \
+    	phantomjs  \
+    	statsmodels \
+    	python-utils \
+        proj4 \
+        r-prodlim \
+        r-class \ 
+        r-timeDate \
+        r-lava \
+        r-pracma \
+        r-mvtnorm \
+        r-knitr \  
+        r-htmltools \
+        r-plyr \
+        r-NLP \
+        r-rpart.plot \
+        r-SnowballC \
+        r-tm \
+        r-ggplot2 \
+        r-RODBC  \
+        r-gdtools \
+        r-rsvg   \
+        r-slam \
+        r-GPArotation \
+        r-permute \
+        r-vegan \
+        r-ggalt \
+        r-igraph \
+        r-wordcloud \
+        r-cairo \
+        r-pdftools  \
+        r-ks
+
+RUN Rscript -e 'install.packages(c("truncnorm","Rsolnp","LSAmitR", "Rgraphviz", "graph", "rsample", "proxy", "Rcampdf", "tm.lexicon.GeneralInquirer", "VGAM", "impute","checkmate", "latticeExtra", "acepack"),repos = "https://cloud.r-project.org",dependencies = TRUE)'
+
+RUN Rscript -e 'install.packages(c("htmlTable", "viridis", "brew", "RColorBrewer", "desc", "commonmark", "Hmisc", "roxygen2", "DT", "dencies", "mice", "CDM", "mitools", "sirt", "TAM", "miceadds", "mockery", "praise", "rex", "fontBitstreamVera", "fontLiberation", "testthat", "covr", "fontquiver", "svglite", "pbdZQM", "DRR", "webshot", "mclust", "ggdendro", "reshape", "reshape2", "prettyunits", "progress", "GGally", "multiwayvcov", "wordcloud2", "openxlsx", "rio", "survey", "coda", "sfsmisc", "polucor", "pbivnorm", "numDeriv", "Archive", "lavaan", "lavaan.survey", "RcppRoll", "DEoptimR", "robustbase", "gower", "kernlab", "CVST", "SQUAREM", "ddalpha", "dimRed", "ipred", "recipes", "neuralnet", "irlba", "kknn", "gtools", "gdata", "caTools", "gplots", "ROCR", "MLmetrics", "dummies", "clipr", "zipcode"),repos = "https://cloud.r-project.org",dependencies = TRUE)'
+#
+## NB extensions is not working when running it in jupyterhub kubernetes so adding this next line
+RUN conda install -c conda-forge jupyter_contrib_nbextensions
+RUN jupyter nbextension install --py widgetsnbextension --sys-prefix
+RUN jupyter nbextension enable  --py widgetsnbextension --sys-prefix
+RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$JAVA_LD_LIBRARY_PATH
+RUN R CMD javareconf
+RUN Rscript -e 'install.packages(c("RWekajars","rpart.plot","zip","gbm","R.methodsS3","R.oo","R.utils","officer","githubinstall","caret"),repos = "https://cloud.r-project.org",dependencies = TRUE)'
+#RUN Rscript -e 'install.packages(c("caret"),repos = "https://cloud.r-project.org",dependencies = TRUE)'
+RUN apt -y update ; apt-get -y install zlib1g  zlib1g-dev  cargo libpng-dev libmagick++-dev
+RUN Rscript -e 'install.packages(c("knitr","kableExtra"),repos = "https://cloud.r-project.org",dependencies = TRUE)'
+RUN    apt-get  -y autoclean &&\
+       apt-get update -y && apt-get upgrade -y     && \
+       apt-get install -y libglu1-mesa-dev libx11-dev libcgal-dev   && \
+       apt-get install -y xorg   && \
+       apt-get install -y libatlas-base-dev   && \
+       apt-get install -y gfortran   && \
+       apt-get install -y libblas-dev liblapack-dev   && \
+       apt-get install -y libftgl2 libfreetype6-dev  
+RUN rm -r /var/cache/apt/archives/ && apt-get autoclean && apt-get install -y libudunits2-dev libgeos-dev
+RUN Rscript -e 'install.packages(c("ggrepel","ggwordcloud"),repos = "https://cloud.r-project.org",dependencies = TRUE)'
+#
+##
+## This should allow users to turn off extension if they do not want them.
+##
+ADD custom.css /opt/conda/pkgs/notebook-5.7.5-py37_0/lib/python3.7/site-packages/notebook/static/custom/
+ADD custom.css home/jovyan/.jupyter/custom.css
+ADD custom.css home/jovyan/.jupyter/custom/custom.css
+ADD custom.css /opt/conda/pkgs/notebook-5.7.5-py37_0/lib/python3.7/site-packages/notebook/static/custom/custom.css
+ADD custom.css /opt/conda/pkgs/notebook-6.0.1-py37_0/lib/python3.7/site-packages/notebook/static/custom/custom.css
+ADD custom.css /opt/conda/pkgs/jupyter_core-4.4.0-py_0/site-packages/jupyter_core/tests/dotipython/profile_default/static/custom/custom.css
+ADD custom.css /opt/conda/pkgs/jupyter_core-4.4.0-py_0/site-packages/jupyter_core/tests/dotipython_empty/profile_default/static/custom/custom.css
+ADD custom.css /opt/conda/lib/python3.7/site-packages/jupyter_core/tests/dotipython/profile_default/static/custom/custom.css
+ADD custom.css /opt/conda/lib/python3.7/site-packages/jupyter_core/tests/dotipython_empty/profile_default/static/custom/custom.css
+ADD custom.css /opt/conda/lib/python3.7/site-packages/notebook/static/custom/custom.css
+RUN jupyter nbextensions_configurator enable
+#RUN jupyter nbextension enable codefolding/main
+RUN conda install r-polyclip 
+RUN pip install --upgrade datascience
+#RUN  conda install \
+#		r-tm=0.7-6 \
+#		r-rmarkdown=1.13 \
+#		r-NLP=0.2-0 \
+#		r-MASS=7.3-51.4 \
+#		r-kknn=1.3.1 \
+#		r-htmltools=0.3.6 
+
+#		r-GGally=1.4.0 \
+#		r-dummies=1.5.6 \
+#		r-lattice=0.20-38 \
+#		r-uuid=0.1-2 \
+#		r-foreach=1.4.7 \
+#		r-cluster=2.1.0 \
+#		r-gower=0.2.1 \
+#		r-xfun=0.8 \
+#		r-zeallot=0.1.0 \
+#		r-glue=1.3.1 \
+#		r-webshot=0.5.1 \
+#		r-scales=1.0.0 \
+#		r-viridisLite=0.3.0 \
+#		r-foreign=0.8-71 \
+#		r-lava=1.6.6 \
+#		r-httr=1.4.0 \
+#		r-acepack=1.4.1 \
+#		r-nnet=7.3-12 
+#RUN  conda install \
+#		r-manipulateWidget=0.10.0 \
+#		r-cellranger=1.1.0 \
+#		r-fdrtool=1.2.15 \
+#		r-ModelMetrics=1.2.2 \
+#		r-pbapply=1.4-2 \
+#		r-mime=0.7 \
+#		r-huge=1.3.4 \
+#		r-stringi=1.4.3 \
+#		r-pillar=1.4.2 \
+#		r-httpuv=1.5.1 \
+#		r-promises=1.0.1 \
+#		r-assertthat=0.2.1 \
+#		r-mnormt=1.5-5 \
+#		r-class=7.3-15 \
+#		r-shiny=1.3.2 \
+#		r-SnowballC=0.6.0 \
+#		r-rgl=0.100.24 \
+#		r-psych=1.8.12 \
+#		r-neuralnet=1.44.2 \
+#		r-lubridate=1.7.4 \
+#		r-kableExtra=1.1.0 \
+#		r-gridExtra=2.3 \
+#		r-ggdendro=0.1-20 \
+#		r-colorspace=1.4-1 \
+#		r-base64enc=0.1-3 \
+#		r-backports=1.1.4 \
+#		r-repr=0.19.2 
+#RUN  conda install \
+#		r-crosstalk=1.0.0 \
+#		r-magrittr=1.5 \
+#		r-recipes=0.1.6 \
+#		r-jpeg=0.1-8.1 \
+#		r-crayon=1.3.4 \
+#		r-survival=2.44-1.1 \
+#		r-gtable=0.3.0 \
+#		r-ggm=2.3 \
+#		r-miniUI=0.1.1.1 \
+#		r-xtable=1.8-4 \
+#		r-Formula=1.2-3 \
+#		r-prodlim=2018.04.18 \
+#		r-RColorBrewer=1.1-2 \
+#		r-pkgconfig=2.0.2 \
+#		r-tidyselect=0.2.5 \
+#		r-later=0.8.0 \
+#		r-evaluate=0.14 \
+#		r-purrr=0.3.2 \
+#		r-nlme=3.1-140 \
+#		r-slam=0.1-45 \
+#		r-rstudioapi=0.10 \
+#		r-tibble=2.1.3 \
+#		r-Matrix=1.2-17 \
+#		r-data.table=1.12.2 \
+#		r-R6=2.4.0 \
+#		r-KernSmooth=2.23-15 \
+#		r-rjson=0.2.20 \
+#		r-timeDate=3043.102 \
+#		r-d3Network=0.5.2.1 \
+#		r-rpart.plot=3.0.8 \
+#		r-reshape2=1.4.3 \
+#		r-polyclip=1.10-0 \
+#		r-mvtnorm=1.0-11 \
+#		r-knitr=1.23 \
+#		r-IRdisplay=0.7.0 \
+#		r-entropy=1.2.1 \
+#		r-caret=6.0-84 \
+#		r-dplyr=0.8.3 \
+#		r-Hmisc=4.2-0 \
+#		r-lazyeval=0.2.2 \
+#		r-digest=0.6.20 \
+#		r-checkmate=1.9.4 \
+#		r-readr=1.3.1 \
+#		r-rvest=0.3.4 \
+#		r-jsonlite=1.6 \
+#		r-iterators=1.0.12 \
+#		r-ipred=0.9-9 \
+#		r-abind=1.4-5 \
+#		r-Rcpp=1.0.1 \
+#		r-htmlTable=1.13.1 \
+#		r-htmlwidgets=1.3 \
+#		r-reshape=0.8.8 \
+#		r-rlang=0.4.0 \
+#		r-munsell=0.5.0 \
+#		r-stringr=1.4.0 \
+#		r-glasso=1.11 \
+#		r-whisker=0.3-2 \
+#		r-xml2=1.2.0 \
+#		r-png=0.1-7 \
+#		r-pbivnorm=0.6.0 \
+#		r-vctrs=0.2.0 \
+#		r-corpcor=1.6.9 \
+#		r-latticeExtra=0.6-28 \
+#		r-codetools=0.2-16 \
+#		r-withr=2.1.2 \
+#		r-hms=0.5.0 \
+#		r-pbdZMQ=0.3-3 \
+#		r-rpart=4.1-15 \
+#		r-readxl=1.3.1 \
+#		r-pracma=2.2.5 \
+#		r-mclust=5.4.5 \
+#		r-ks=1.11.5 \
+#		r-igraph=1.2.4.1 \
+#		r-gtools=3.8.1 \
+#		r-e1071=1.7-2 \
+#		r-ggplot2=3.3.0 \
+#		r-plyr=1.8.4 
+
+#  - r-splines=3.6.1
+#  - r-bdgraph=2.61
+#  - r-qgraph=1.6.3
+#  - r-ggwordcloud=0.5.0
+#  - r-compiler=3.6.1
+#  - r-irkernel=1.0.1.9000
+#  - r-stats4=3.6.1
+#  - r-grid=3.6.1
+#  - r-tools=3.6.1
+#  - r-parallel=3.6.1
+
+RUN jupyter nbextension enable zenmode/main
+RUN jupyter nbextension enable table_beautifier/main
+RUN jupyter nbextensions_configurator enable
+RUN jupyter nbextension enable  --py widgetsnbextension --sys-prefix
+RUN jupyter nbextension list
+
+USER jovyan
+ADD custom.css    /tmp/custom.css
+ADD common.json   /tmp/common.json
+ADD tree.json     /tmp/tree.json
+ADD notebook.json /tmp/notebook.json
+ADD add_files.sh /tmp/add_files.sh
+USER root
+RUN conda install -c conda-forge r-devtools
+RUN conda install -c conda-forge r-entropy 
+RUN conda install -c genomedk r-qgraph
+RUN Rscript -e 'install.packages(c("https://cran.r-project.org/src/contrib/Archive/repr/repr_0.19.2.tar.gz"),dependencies = TRUE)'
+RUN pip install nbgitpuller \
+    &&  jupyter serverextension enable --py nbgitpuller --sys-prefix
+RUN Rscript -e 'install.packages(c("https://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_3.3.1.tar.gz"),dependencies = TRUE)'
+RUN apt-get -y install openssh-client
+
+USER jovyan

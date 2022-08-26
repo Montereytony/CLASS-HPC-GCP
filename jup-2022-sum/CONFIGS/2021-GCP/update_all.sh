@@ -1,0 +1,9 @@
+cd EWMBA217; bash update_ewmba217.sh; cd ..
+cd EWMBA267-11; bash update_ewmba267-11.sh; cd ..
+cd EWMBA290T-12;  bash update_ewmba290T-12.sh; cd ..
+#cd MBA217; bash update_mba217.sh; cd ..
+cd MBA267-11; bash update_mba267-11.sh; cd ..
+cd MBA290T-12; bash update_mba290T-12.sh; cd ..
+cd MFE230O; bash update_mfe230o.sh; cd ..
+cd UGBA147; bash update_ugba147.sh; cd ..
+cd UGBA88; bash update_ugba88.sh; cd ..

@@ -1,0 +1,7 @@
+mv Create_pv_ewmba263-1.yaml Create_pv_ewmba263-1.yaml
+mv Create_pvc_ewmba263-1.yaml Create_pvc_ewmba263-1.yaml
+mv config_ewmba263-1-1st.yaml config_ewmba263-1-1st.yaml
+mv config_ewmba263-1.yaml config_ewmba263-1.yaml
+mv init_ewmba263-1.sh init_ewmba263-1.sh
+mv remove_ewmba263-1.sh remove_ewmba263-1.sh
+mv update_ewmba263-1.sh update_ewmba263-1.sh

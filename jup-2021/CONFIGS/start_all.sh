@@ -1,0 +1,9 @@
+cd EWMBA217; bash init_ewmba217.sh; cd ..
+cd EWMBA267-11; bash init_ewmba267-11.sh; cd ..
+cd EWMBA290T-12;  bash init_ewmba290T-12.sh; cd ..
+#cd MBA217; bash init_mba217.sh; cd ..
+cd MBA267-11; bash init_mba267-11.sh; cd ..
+cd MBA290T-12; bash init_mba290T-12.sh; cd ..
+cd MFE230O; bash init_mfe230o.sh; cd ..
+cd UGBA147; bash init_ugba147.sh; cd ..
+cd UGBA88; bash init_ugba88.sh; cd ..

@@ -1,0 +1,19 @@
+#https://www.linuxtechi.com/configure-nfs-persistent-volume-kubernetes/
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv-ugba147-2021-summer-home
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /jup/2021/summer/ugba147
+    server: 10.42.203.178

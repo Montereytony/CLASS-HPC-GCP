@@ -1,0 +1,56 @@
+#scheduling:
+#  userScheduler:
+#    enabled: true
+#  podPriority:
+#    enabled: true
+#  userPlaceholder:
+#    enabled: true
+#    replicas: 2
+#cull:
+#  enabled: false
+#  users: false
+#  timeout: 7200
+#  every: 1200
+#prePuller:
+#  hook:
+#    enabled: false
+#  continuous:
+#    enabled: false
+singleuser:
+  cloudMetadata:
+    blockWithIptables: false
+  extraEnv:
+    EDITOR: "vim"
+  image:
+    name: montereytony/ugba-rah-sp22
+    tag: jup2-02
+  memory:
+    limit: 1G
+    guarantee: .5G
+  cpu:
+    limit: .5
+    guarantee: .25
+proxy:
+  secretToken: "f33560f2a799bf1431f96de9b40b9306b0a9d67568529909c8152cf871514f70"
+#  https:
+#    enabled: true
+#    hosts:
+#      - ugba147.haastech.org
+#    letsencrypt:
+#      contactEmail: tony_cricelli@berkeley.edu
+#  service:
+#    loadBalancerIP: 35.226.187.244
+hub:
+  cookieSecret: "4341d4ff03006d8f4efc7dcd2822a113772849327bceec4e313f341863af29fd"
+  db:
+    type: sqlite-memory
+  config:
+    DummyAuthenticator:
+      password: f112358!
+    JupyterHub:
+      authenticator_class: dummy
+    Authenticator:
+      admin_users:
+        - rhuntsinger
+      allowed_users:
+        - rhuntsinger

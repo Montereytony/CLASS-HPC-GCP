@@ -1,0 +1,13 @@
+Project	Instance_Name	External_Ip	Is_Preemptible	Monthly_Cost
+haas-jupyter-jub	gke-publichaascluster-default-pool-31e98a8b-3wds	146.148.45.2	false	2.92
+haas-jupyter-jub	gke-publichaascluster-default-pool-31e98a8b-4k62	35.239.142.133	false	2.92
+haas-jupyter-jub	gke-publichaascluster-default-pool-31e98a8b-c45z	34.121.75.89	false	2.92
+haas-jupyter-jub	gke-publichaascluster-default-pool-31e98a8b-3wds	146.148.45.2	false	2.92
+haas-jupyter-jub	gke-publichaascluster-default-pool-31e98a8b-4k62	35.239.142.133	false	2.92
+haas-jupyter-jub	gke-publichaascluster-default-pool-31e98a8b-c45z	34.121.75.89	false	2.92
+haas-jupyter-jub	gke-publichaascluster-default-pool-31e98a8b-3wds	146.148.45.2	false	2.92
+haas-jupyter-jub	gke-publichaascluster-default-pool-31e98a8b-4k62	35.239.142.133	false	2.92
+haas-jupyter-jub	gke-publichaascluster-default-pool-31e98a8b-c45z	34.121.75.89	false	2.92
+haas-jupyter-jub	gke-publichaascluster-default-pool-31e98a8b-3wds	146.148.45.2	false	2.92
+haas-jupyter-jub	gke-publichaascluster-default-pool-31e98a8b-4k62	35.239.142.133	false	2.92
+haas-jupyter-jub	gke-publichaascluster-default-pool-31e98a8b-c45z	34.121.75.89	false	2.92

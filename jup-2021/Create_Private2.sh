@@ -1,0 +1,33 @@
+gcloud config set project haas-jupyter-jub
+gcloud config set compute/zone  us-central1-b
+gcloud beta container  --project "haas-jupyter-jub" clusters create "haascluster"  \
+--zone "us-central1-b" \
+--no-enable-basic-auth \
+--cluster-version "1.16.15-gke.4901" \
+--release-channel "None" \
+--machine-type "n1-standard-16" \
+--image-type "Ubuntu" \
+--disk-type "pd-standard" \
+--disk-size "100" \
+--metadata disable-legacy-endpoints=true \
+--scopes "https://www.googleapis.com/auth/cloud-platform" \
+--num-nodes "3" \
+--enable-stackdriver-kubernetes \
+--enable-private-nodes \
+--enable-private-endpoint \
+--master-ipv4-cidr "172.16.0.0/28" \
+--enable-ip-alias \
+--network "projects/haas-jupyter-jub/global/networks/default" \
+--subnetwork "projects/haas-jupyter-jub/regions/us-central1/subnetworks/default" \
+--default-max-pods-per-node "110" \
+--enable-autoscaling \
+--min-nodes "1" \
+--max-nodes "50" \
+--enable-master-authorized-networks \
+--addons HorizontalPodAutoscaling,HttpLoadBalancing \
+--enable-autoupgrade \
+--enable-autorepair \
+--max-surge-upgrade 1 \
+--max-unavailable-upgrade 0 \
+--enable-vertical-pod-autoscaling \
+--workload-pool "haas-jupyter-jub.svc.id.goog"

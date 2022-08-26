@@ -1,0 +1,20 @@
+
+First run init_ugba147-2021-summer.sh
+
+This creates the name space and initializes jupyterhub. This will give us the public IP that
+google assignes. You will notice that we do not mount any storage with this yaml file.
+
+Next run  kubectl --namespace=ugba147-2021-summer get svc proxy-public  to get the external address.
+
+Now with the IP address,  go to aws and update route53 with the name/ip
+
+With the name and IP created, now we can update the update yaml file so the SSL cert
+can be created.
+
+Also now that the name/ip is configured go to the console and update the Oauth credentials for the
+domain. Basically copy the secret and the key and add it to the config yaml file.
+
+ince we have the name space created, lets create the pv/pvc for the home folder and for the shared folder.
+
+
+

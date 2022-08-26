@@ -1,0 +1,30 @@
+singleuser:
+  cloudMetadata:
+    blockWithIptables: false
+  image:
+    name: montereytony/ugba-rah-sp22
+    tag: jup2-02
+  memory:
+    limit: 1G
+    guarantee: .5G
+  cpu:
+    limit: .5
+    guarantee: .25
+proxy:
+  secretToken: "64b578c02255d60e7be1462a6d84edc0cea5d0e4faed9bdd3859d8484c213f0d"
+hub:
+  cookieSecret: "4962a384958d747d40ea40153d0ce685a40c780608ab9216578100a1f8c7f198"
+  db:
+    type: sqlite-memory
+  config:
+    DummyAuthenticator:
+      password: N@choY0Mama
+    JupyterHub:
+      authenticator_class: dummy
+    Authenticator:
+      admin_users:
+        - tony
+      allowed_users:
+        - yoshi
+        - zane
+        - pchew

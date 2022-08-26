@@ -1,0 +1,161 @@
+gcloud config set project $(gcloud projects list --format="value(projectId)" --filter="projectId ~ qwiklabs-gcp")
+
+#copy the output of this command (you'll need it in a minute)
+gcloud config get-value project
+
+
+mkdir terraform
+cd terraform
+
+vi provider.tf
+provider "google" {
+  project = "<YOUR_PROJECT_ID>"
+  region  = "us-central1"
+}
+
+provider "google-beta" {
+  project = "<YOUR_PROJECT_ID>"
+  region  = "us-central1"  
+}
+
+vi gke.tf
+
+resource "google_container_cluster" "my_cool_cluster" {
+  name               = "my-cool-cluster"
+  location           = "us-central1-f"
+  initial_node_count = 3
+  provider           = google-beta
+
+  network    = "default"
+  subnetwork = "default"
+
+  vertical_pod_autoscaling {
+    enabled = true
+  }
+
+  ip_allocation_policy {
+    cluster_ipv4_cidr_block  = "/16"
+    services_ipv4_cidr_block = "/22"
+  }
+
+  node_config {
+    machine_type = "e2-standard-4"
+  }
+
+  addons_config {
+    cloudrun_config {
+      disabled = false
+    }
+    istio_config {
+      disabled = false
+    }
+  }
+}
+
+resource "null_resource" "custom_domain" {
+  depends_on = [
+    google_container_cluster.my_cool_cluster
+  ]
+
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+
+  provisioner "local-exec" {
+    command = "/bin/bash custom-domain.sh"
+  }
+}
+
+
+
+vi registry.tf
+
+resource "google_container_registry" "registry" {
+}
+resource "google_storage_bucket_iam_member" "viewer" {
+  bucket = google_container_registry.registry.id
+  role = "roles/storage.objectViewer"
+  member = "allUsers"
+}
+
+vi custom-domain.sh
+
+#!/bin/bash
+
+echo "starting..."
+
+gcloud container clusters get-credentials my-cool-cluster --zone us-central1-f
+
+load_balancer_ip=""
+while [ "${load_balancer_ip}" == "" ]; do
+ load_balancer_ip=`kubectl get services -n istio-system istio-ingressgateway --output jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null`
+done
+echo "setting to ${load_balancer_ip}"
+
+
+map_exists=""
+while [ "${map_exists}" == "" ]; do
+  map_exists=`kubectl get configmap config-domain --namespace knative-serving  2>/dev/null`
+done
+kubectl patch configmap config-domain --namespace knative-serving --patch \
+ "{\"data\": {\"example.com\": null, \"${load_balancer_ip}.xip.io\": \"\"}}"
+
+echo "end."
+
+
+terraform init
+terraform plan
+terraform apply
+
+cd ~
+mkdir helloworld
+cd helloworld
+
+vi package.json
+
+{
+  "name": "knative-helloworld_js",
+  "version": "1.0.0",
+  "description": "Simple hello world sample in Node",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
+
+
+npm install
+npm start
+
+vi Dockerfile
+
+
+FROM node:10
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+RUN npm install --only=production
+COPY . .
+CMD [ "npm", "start" ]
+
+
+
+Paste the following into .dockerignore:
+Dockerfile
+README.md
+node_modules
+npm-debug.log
+
+export PROJECT=$(gcloud config get-value project)
+gcloud builds submit --tag gcr.io/$PROJECT/helloworld
+
+
+cd ~
+cd terraform
+terraform destroy
+

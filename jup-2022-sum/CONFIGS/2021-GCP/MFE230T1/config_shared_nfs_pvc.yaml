@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pv-mfe230x-fall-2021
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi

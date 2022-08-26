@@ -1,0 +1,166 @@
+#
+#
+# Tony Cricelli 2022
+#  Testing Yaml File for use with GCP Autopilot
+#
+#
+#scheduling:
+#  userScheduler:
+#    enabled: true
+#  podPriority:
+#    enabled: true
+#  userPlaceholder:
+#    enabled: true
+#    replicas: 4
+#  userPods:
+#    nodeAffinity:
+#      matchNodePurpose: require
+
+hub: # hub pod, running jupyterhub/jupyterhub
+  resources:
+    requests:
+      cpu: 500m # 0m - 1000m
+      memory: 2Gi # 200Mi - 4Gi
+proxy:
+  chp: # proxy pod, running jupyterhub/configurable-http-proxy
+    resources:
+      requests:
+        cpu: 500m # 0m - 1000m
+        memory: 256Mi # 100Mi - 600Mi
+  traefik: # autohttps pod (optional, running traefik/traefik)
+    resources:
+      requests:
+        cpu: 500m # 0m - 1000m
+        memory: 512Mi # 100Mi - 1.1Gi
+  secretSync: # autohttps pod (optional, sidecar container running small Python script)
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+scheduling:
+  userScheduler: # user-scheduler pods (optional, running kubernetes/kube-scheduler)
+    resources:
+      requests:
+        cpu: 30m # 8m - 45m
+        memory: 512Mi # 100Mi - 1.5Gi
+  userPlaceholder: # user-placeholder pods (optional, running pause container)
+    # This is just an override of the resource requests that otherwise match
+    # those configured in singleuser.cpu|memory.guarantee|limit.
+    resources: {}
+    enabled: true
+    replicas: 4
+prePuller: # hook|continuous-image-puller pods (optional, running pause container)
+  resources:
+    requests:
+      cpu: 10m
+      memory: 8Mi
+  continuous:
+    enabled: false
+  hook: # hook-image-awaiter pod (optional, running GoLang binary defined in images/image-awaiter)
+    resources:
+      requests:
+        cpu: 10m
+        memory: 8Mi
+    enabled: false
+cull:
+  enabled: true
+  timeout: 7200
+  every: 300
+#prePuller:
+#  continuous:
+#    enabled: false
+#  hook:
+#    enabled: false
+singleuser:
+  cloudMetadata:
+    blockWithIptables: false
+  image:
+    name: montereytony/ugba-rah-sp22
+    tag: jup2-02
+  memory:
+    limit: 4G
+    guarantee: 512M
+  cpu:
+    limit: 2.0
+    guarantee: 0.05
+  storage:
+    type: static
+    storageClass: "class-ugba88"
+    static:
+      pvcName: ugba88-pvc
+      subPath: '{username}'
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: ugba88-pvc-sh
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+        readOnly: true
+  extraEnv:
+    CHOWN_HOME: "yes"
+  uid: 1004
+  fsGid: 1005
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work;
+            /bin/sh /tmp/add_files.sh;
+proxy:
+  secretToken: "29522b9402d131b30281e0a9de82d3c1576910aab0b33dc1d7c9366882dde0ae"
+  https:
+    enabled: true
+    hosts:
+      - ugba88-2022-fall.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 34.122.106.17
+hub:
+  cookieSecret: "14dc0d7c0d5494ce10125ab3416294df261a51ac4c2757d5ba8dc53276b725df"
+  db:
+    type: sqlite-memory
+  config:
+    GoogleOAuthenticator:
+      client_id: 152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com
+      client_secret: jXNHCWRcYWfXW1Y9HV0zhUuZ
+      oauth_callback_url: https://ugba88-2022-fall.haastech.org/hub/oauth_callback
+      hosted_domain:
+        - berkeley.edu
+      login_service: your Berkeley Account.
+    JupyterHub:
+      authenticator_class: google
+    Authenticator:
+      admin_users:
+        - tony_cricelli
+        - rhuntsinger
+      allowed_users:
+        - yoshikim1
+        - yoshikim2
+        - yoshikim8
+        - yoshikim9
+        - yoshikim0
+        - yoshikima
+        - yoshikimb
+        - yoshikimc
+        - yoshikimd
+        - yoshikime
+        - yoshikimf
+        - yoshikimg
+        - yoshikimh
+        - yoshikimi
+        - yoshikimj
+        - yoshikimk
+        - yoshikiml
+        - yoshikimm
+        - yoshikimn
+        - yoshikimo
+        - yoshikimp
+        - yoshikimq
+        - yoshikimr
+        - yoshikims
+        - yoshikimt

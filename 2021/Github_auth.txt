@@ -1,0 +1,15 @@
+auth:
+  type: github
+  github:
+    clientId: "<ID>"
+    clientSecret: "<SECRET>"
+    callbackUrl: "<URL>"
+    org_whitelist:
+      - "<ORG_NAME>"
+  scopes:
+      - "read:org"
+
+singleuser:
+  image:
+    name: jupyter/datascience-notebook
+    tag: c19283de5a6f

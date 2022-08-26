@@ -1,0 +1,62 @@
+hub:
+  cookieSecret: "4488e38105f3a39166ed09d16616e34b9fc6443a175d5acca7b1dec4deb88d7e"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "0a1a4a1416042dd41917204450aa67abf37346e2629414ad12487352406d1295"
+  https:
+    enabled: true
+    hosts:
+      - mba290t-13.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 35.226.15.208
+scheduling:
+  podPriority:
+    enabled: true
+  userPlaceholder:
+    replicas: 3
+cull:
+  enabled: true
+  timeout: 3600
+  every: 300
+prePuller:
+  continuous:
+    enabled: false
+singleuser:
+  image:
+    name: montereytony/sql101
+    tag: latest
+  memory:
+    limit: 2G
+    guarantee: 1G
+  cpu:
+    limit: 1
+    guarantee: .5
+  storage:
+    capacity: 5Gi
+    dynamic:
+      storageClass: standard
+#      storageClass: jupyterhub-user-ssd
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work
+#            gitpuller https://github.com/rahuntsinger/ugba147test main shared
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://mba290t-13.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  admin:
+    users:
+      - tony_cricelli
+      - adelkar

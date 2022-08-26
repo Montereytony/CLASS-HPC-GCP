@@ -1,0 +1,121 @@
+#
+#
+# Tony Cricelli 2022
+#  Testing Yaml File for use with GCP Autopilot
+#
+#
+scheduling:
+  userScheduler:
+    enabled: true
+  podPriority:
+    enabled: true
+  userPlaceholder:
+    enabled: true
+    replicas: 4
+#cull:
+#  enabled: true
+#  timeout: 3600
+#  every: 300
+prePuller:
+  continuous:
+    enabled: false
+  hook:
+    enabled: false
+singleuser:
+  cloudMetadata:
+    blockWithIptables: false
+  image:
+    name: montereytony/ugba-rah-sp22
+    tag: jup2-02
+  memory:
+    limit: 2G
+    guarantee: 1G
+  cpu:
+    limit: 1
+    guarantee: .25
+  storage:
+    type: static
+    storageClass: "class-mba290t-11"
+    static:
+      pvcName: mba290t-11-pvc
+      subPath: '{username}'
+    extraVolumes:
+      - name: shared
+        persistentVolumeClaim:
+          claimName: mba290t-11-pvc-sh
+    extraVolumeMounts:
+      - name: shared
+        mountPath: /home/jovyan/shared
+        readOnly: true
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work;
+#            /bin/sh /tmp/add_files.sh;
+proxy:
+  service:
+    loadBalancerIP: 34.173.126.188
+  https:
+    enabled: true
+    hosts:
+      - mba290t-11.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+      acmeServer: https://acme-staging-v02.api.letsencrypt.org/directory
+  secretToken: "c562a30f3be5f2e1e99f812460dfad3a8a9679c69f469e08f11f576249c94648"
+  traefik:
+    image:
+      tag: 2.8.1 # default is 2.6.1
+    extraInitContainers:
+      - name: startup-delay
+        image: busybox:stable
+        command: ["sh", "-c", "sleep 10"]
+debug:
+  enabled: true
+#jupyterhub:
+#  hub:
+#    # See: https://jupyterhub.readthedocs.io/en/stable/api/app.html
+#    activity_resolution: 120  # Default 30.
+#    hub_activity_interval: 600  # Default 300.
+#    last_activity_interval: 300  # Default 300, 60 in z2jh helm chart.
+#    init_spawners_timeout: 1  # Default 10
+hub:
+  cookieSecret: "e45075101045f8d06cbd2d688952bf8bd47787053f8b68c1965dfb7044dea5f3"
+  db:
+    upgrade: true
+    type: sqlite-memory
+#  config:
+#    DummyAuthenticator:
+#      password: N@choY0Mama
+#    JupyterHub:
+#      authenticator_class: dummy
+#    Authenticator:
+#      admin_users:
+#        - tony
+#      allowed_users:
+#        - yoshi
+#        - zane
+#        - pchew
+  config:
+    GoogleOAuthenticator:
+      client_id: 152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com
+      client_secret: jXNHCWRcYWfXW1Y9HV0zhUuZ
+      oauth_callback_url: https://mba290t-11.haastech.org/hub/oauth_callback
+      hosted_domain:
+        - berkeley.edu
+      login_service: your Berkeley Account.
+    JupyterHub:
+      authenticator_class: google
+    Authenticator:
+      admin_users:
+        - tony_cricelli
+        - john_analoh
+        - varier
+      allowed_users:
+        - tony_cricelli
+        - john_analoh
+        - varier

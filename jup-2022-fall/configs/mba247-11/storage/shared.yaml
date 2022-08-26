@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mba247-11-pv-sh
+spec:
+  capacity:
+   storage: 300Gi
+  accessModes:
+   - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: class-mba247-11-sh
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /home/mba247-11/2022-fall/shared
+    server: 10.128.0.10
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mba247-11-pvc-sh
+spec:
+  storageClassName: class-mba247-11-sh
+  accessModes:
+   - ReadOnlyMany
+  resources:
+   requests:
+    storage: 5Gi

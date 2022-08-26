@@ -1,0 +1,18 @@
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+ARG OWNER=montereytony
+ARG BASE_CONTAINER=$OWNER/ugba-rah-sp22:jup2-02
+FROM $BASE_CONTAINER
+LABEL maintainer="Montereytony <montereytony@gmail.com>"
+#USER ${NB_UID}
+RUN Rscript -e "devtools::install_github('dahtah/imager')" 
+#RUN Rscript install.packages("arules") 
+#RUN Rscript install.packages("ROSE")
+RUN pip install RISE 
+RUN python -m pip install jupyterthemes
+RUN python -m pip install --upgrade jupyterthemes
+RUN python -m pip install jupyter_contrib_nbextensions
+RUN pip install RISE
+RUN jupyter-nbextension install rise --py --sys-prefix
+RUN jupyter-nbextension enable  rise --py --sys-prefix
+USER ${NB_UID}

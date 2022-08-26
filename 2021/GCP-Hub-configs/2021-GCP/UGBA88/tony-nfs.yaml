@@ -1,0 +1,8 @@
+volumeMounts:
+  - name: your-nfs-volume
+    mountPath: /home/jovyan/shared
+volumes:
+  - name: your-nfs-volume
+nfs:  
+  server: 10.128.0.10
+  path:/home/ugba88

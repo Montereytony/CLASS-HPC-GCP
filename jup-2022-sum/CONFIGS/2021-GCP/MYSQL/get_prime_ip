@@ -1,0 +1,4 @@
+PRIMARY_IP=$(kubectl get svc mariadb-1-mariadb \
+        --namespace default \
+        --output jsonpath='{.status.loadBalancer.ingress[0].ip}')
+echo "$PRIMARY_IP"

@@ -1,0 +1,462 @@
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+ARG OWNER=jupyter
+ARG BASE_CONTAINER=$OWNER/minimal-notebook
+FROM $BASE_CONTAINER
+
+LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
+
+USER root
+ENV R_BASE_VERSION 4.1.2
+
+# R pre-requisites
+RUN apt-get update --yes && \
+    apt-get install --yes --no-install-recommends \
+    fonts-dejavu \
+    unixodbc \
+    unixodbc-dev \
+    r-cran-rodbc \
+    gfortran \
+    gcc  \
+    libomp-dev \
+    libfontconfig1-dev \
+    build-essential
+
+RUN apt update --yes -qq  && \
+    apt install --yes --no-install-recommends software-properties-common dirmngr  && \
+    wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc  && \
+    add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"  && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*  
+
+#RUN apt update -qq --yes && \
+#    apt install --no-install-recommends software-properties-common dirmngr && \
+#    wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc && \
+#    add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/" && \
+#    apt-get clean && rm -rf /var/lib/apt/lists/*  
+
+
+
+
+# R packages including IRKernel which gets installed globally.
+# r-e1071: dependency of the caret R package
+RUN mamba update mamba -c  conda-forge
+
+
+RUN apt-get update \
+        && apt-get install -y --no-install-recommends \
+                littler\
+                r-cran-littler \
+                r-base=${R_BASE_VERSION}* \
+                r-base-dev=${R_BASE_VERSION}* \
+                r-recommended=${R_BASE_VERSION}* \
+        && echo 'options(repos = c(CRAN = "https://cloud.r-project.org/"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site \
+        && echo 'source("/etc/R/Rprofile.site")' >> /etc/littler.r \
+        && ln -s /usr/share/doc/littler/examples/install.r /usr/local/bin/install.r \
+        && ln -s /usr/share/doc/littler/examples/install2.r /usr/local/bin/install2.r \
+        && ln -s /usr/share/doc/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
+        && ln -s /usr/share/doc/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r \
+        && install.r docopt \
+        && rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
+        && rm -rf /var/lib/apt/lists/*
+
+RUN mamba install --quiet --yes \
+    'r-base' \
+    'r-caret' \
+    'r-crayon' \
+    'r-devtools' \
+    'r-e1071' \
+    'r-forecast' \
+    'r-hexbin' \
+    'r-htmltools' \
+    'r-htmlwidgets' \
+    'r-irkernel' \
+    'r-nycflights13' \
+    'r-randomforest' \
+    'r-rcurl' \
+    'r-rodbc' \
+    'r-rsqlite' \
+    'r-shiny' \
+    'r-units' 
+RUN mamba install --quiet --yes \
+    'r-jqr' \
+    'r-geojson' \
+    'r-sf' \
+    'r-geojsonio' \
+    'r-rgeos' \
+    'r-gapminder' \
+    'r-splitstackshape' \
+    'r-rworldmap' \
+    'r-gifski'  \
+    'unixodbc' && \
+    mamba clean --all -f -y && \
+    Rscript -e "devtools::install_github('thomasp85/gganimate')"  && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
+# These packages are not easy to install under arm
+RUN set -x && \
+    arch=$(uname -m) && \
+    if [ "${arch}" == "x86_64" ]; then \
+        mamba install --quiet --yes \
+            'r-rmarkdown' \
+            'r-tidymodels' \
+            'r-tidyverse' && \
+            mamba clean --all -f -y && \
+            fix-permissions "${CONDA_DIR}" && \
+            fix-permissions "/home/${NB_USER}"; \
+    fi;
+RUN mamba install --quiet --yes \
+    'r-png'  \
+    gcc_linux-64         gfortran_linux-64         r-essentials \
+     r-htmlwidgets \
+     r-gridExtra \
+     r-e1071  \
+     r-rgl \
+     r-xlsxjars \
+     r-xlsx \
+     r-aer  \
+     r-png \
+     r-rJava \
+     r-devtools \
+     r-digest \
+     r-evaluate \
+     r-memoise  \
+     r-withr  \
+     r-irdisplay \
+     r-r6  \
+     r-irkernel \
+     r-jsonlite\
+     r-lubridate\
+     r-magrittr\
+     r-rcpp \
+     r-repr \
+     r-stringi\
+     r-stringr\
+     r-processx\
+     r-tidyverse\
+     r-readr  \
+     ipython \
+     numpy \
+     pandas \
+     plotnine \
+     matplotlib \
+     seaborn \
+     phantomjs  \
+     statsmodels \
+     python-utils \
+     r-prodlim \
+     r-class \
+     r-timeDate \
+     r-lava \
+     r-pracma \
+     r-mvtnorm \
+     r-knitr \
+     r-htmltools \
+     r-plyr \
+     r-NLP \
+     r-rpart.plot \
+     r-SnowballC \
+     r-tm \
+     r-ggplot2 \
+     r-RODBC  \
+     r-gdtools \
+     r-rsvg   \
+     r-slam \
+     r-GPArotation \
+     r-permute \
+     r-vegan \
+     r-ggalt \
+     r-igraph \
+     r-wordcloud \
+     r-cairo \
+     r-pdftools  \
+     r-truncnorm\
+     r-Rsolnp\
+     r-rsample\
+     r-proxy\
+     r-vgam\
+     r-checkmate\
+     r-latticeExtra\
+     r-acepack\
+     r-htmlTable\
+     r-viridis\
+     r-brew\
+     r-RColorBrewer\
+     r-desc\
+     r-commonmark\
+     r-Hmisc\
+     r-roxygen2\
+     r-mice\
+     r-mitools\
+     r-mockery\
+     r-praise\
+     r-rex\
+     r-fontBitstreamVera\
+     r-fontLiberation\
+     r-testthat\
+     r-covr\
+     r-fontquiver\
+     r-svglite\
+     r-drr\
+     r-webshot\
+     r-mclust\
+     r-ggdendro\
+     r-reshape\
+     r-reshape2\
+     r-prettyunits\
+     r-progress\
+     r-ggally\
+     r-wordcloud2\
+     r-openxlsx\
+     r-rio\
+     r-survey\
+     r-coda\
+     r-sfsmisc\
+     r-pbivnorm\
+     r-numDeriv\
+     r-RcppRoll\
+     r-DEoptimR\
+     r-robustbase\
+     r-gower\
+     r-kernlab\
+     r-cvst\
+     r-SQUAREM\
+     r-ddalpha\
+     r-dimRed\
+     r-ipred\
+     r-recipes\
+     r-neuralnet\
+     r-irlba\
+     r-kknn\
+     r-gtools\
+     r-gdata\
+     r-caTools\
+     r-gplots\
+     r-ROCR\
+     r-MLmetrics\
+     r-dummies\
+     r-clipr\
+     r-ks && \
+     mamba clean --all -f -y && \
+     fix-permissions "${CONDA_DIR}" && \
+     fix-permissions "/home/${NB_USER}"
+
+RUN mamba install --quiet --yes \
+      r-truncnorm\
+      r-pdftools\
+      r-Rsolnp\
+      r-rsample\
+      r-proxy\
+      r-slam\
+      r-VGAM\
+      r-truncnorm\
+      r-mclust\
+      r-pracma\
+      r-reshape\
+      r-prettyunits\
+      r-progress\
+      r-GGally\
+      r-wordcloud2\
+      r-openxlsx\
+      r-rio\
+      r-survey\
+      r-coda\
+      r-mvtnorm\
+      r-sfsmisc\
+      r-mitools\
+      r-pbivnorm\
+      r-numDeriv\
+      r-RcppRoll\
+      r-DEoptimR\
+      r-robustbase\
+      r-gower\
+      r-kernlab\
+      r-CVST\
+      r-DRR\
+      r-SQUAREM\
+      r-lava\
+      r-ddalpha\
+      r-dimRed\
+      r-ipred\
+      r-recipes\
+      r-withr\
+      r-caret\
+      r-neuralnet\
+      r-irlba\
+      r-kknn\
+      r-gtools\
+      r-gdata\
+      r-caTools\
+      r-gplots\
+      r-ROCR\
+      r-MLmetrics\
+      r-dummies\
+      r-slam\
+      r-NLP\
+      r-tm\
+      r-clipr\
+      r-truncnorm\
+      r-ggrepel\
+      r-truncnorm\
+      r-ggwordcloud\
+      r-polyclip\
+      r-entropy\
+      r-tree\
+      r-rjson\
+      r-pbapply\
+      r-glasso\
+      r-huge\
+      r-fdrtool\
+      r-d3Network\
+      r-ggm\
+      r-BDgraph\
+      r-igraph\
+      r-proto\
+      r-colorspace\
+      r-RWekajars\
+      r-rpart.plot\
+      r-zip\
+      r-gbm\
+      r-R.methodsS3\
+      r-R.oo\
+      r-R.utils\
+      r-officer\
+      r-caret \
+      ipympl\
+     'ipywidgets' \
+     'matplotlib-base'  \
+    'sqlalchemy' \
+    'statsmodels' \
+    'sympy' \
+    'widgetsnbextension'\
+    'xlrd'
+
+
+
+
+
+RUN conda install -c conda-forge jupyter_contrib_nbextensions
+RUN jupyter nbextension install --py widgetsnbextension --sys-prefix
+RUN jupyter nbextension enable  --py widgetsnbextension --sys-prefix
+RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$JAVA_LD_LIBRARY_PATH
+
+RUN R CMD javareconf && \
+     mamba clean --all -f -y && \
+     fix-permissions "${CONDA_DIR}" && \
+     fix-permissions "/home/${NB_USER}"
+
+RUN mamba install --quiet --yes \
+      r-kableExtra \
+      r-psych \
+      r-lightgbm \
+      r-qgraph && \
+      mamba clean --all -f -y && \
+      fix-permissions "${CONDA_DIR}" && \
+      fix-permissions "/home/${NB_USER}"
+
+
+USER root
+RUN sudo -H /opt/conda/bin/pip install pymysql python-sql mysql-connector-python ipython-sql 
+RUN apt-get update --yes &&  apt-get -y install mysql-client iputils-ping
+
+RUN mamba install --yes  r-dbi  r-rmariadb ipython-sql &&\ 
+    Rscript -e 'install.packages(c("RMySQL"),repos = "https://cloud.r-project.org",dependencies = TRUE)' && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
+RUN mamba update mamba -c  conda-forge
+USER root
+RUN R -e 'install.packages(c(\
+"shiny",\
+"lightgbm",\
+"plyr",\
+"dplyr",\
+"base64enc",\
+"caret",\
+"colorspace",\
+"dummies",\
+"e1071",\
+"entropy",\
+"ggdendro",\
+"GGally",\
+"ggplot2",\
+"gtools",\
+"ggwordcloud",\
+"gridExtra",\
+"htmltools",\
+"igraph",\
+"IRdisplay",\
+"kableExtra",\
+"kknn",\
+"ks",\
+"knitr",\
+"lubridate",\
+"MASS",\
+"mclust",\
+"mvtnorm",\
+"neuralnet",\
+"NLP",\
+"pracma",\
+"polyclip",\
+"psych",\
+"qgraph",\
+"readxl",\
+"reshape2",\
+"rgl",\
+"rjson",\
+"rmarkdown",\
+"rpart",\
+"rpart.plot",\
+"simmer",\
+"simmer.plot",\
+"stringr",\
+"SnowballC",\
+"tm"),\
+repos="http://cran.us.r-project.org")'
+
+#RUN apt-get update -y && apt-get -y install libmagic-dev libffi-dev
+COPY infra-requirements.txt /tmp/infra-requirements.txt
+RUN pip install --no-cache -r /tmp/infra-requirements.txt
+RUN chown -R ${NB_UID} /opt/conda
+USER ${NB_UID}
+RUN mamba install --yes  r-dbi  r-rmariadb ipython-sql && \
+    Rscript -e 'install.packages(c("RMySQL"),repos = "https://cloud.r-project.org",dependencies = TRUE)' && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
+
+
+ADD custom.css /opt/conda/lib/python3.7/site-packages/notebook/static/custom/custom.css
+ADD custom.css /opt/conda/lib/python3.7/site-packages/jupyter_core/tests/dotipython/profile_default/static/custom/custom.css
+ADD custom.css /opt/conda/lib/python3.7/site-packages/jupyter_core/tests/dotipython_empty/profile_default/static/custom/custom.css
+ADD custom.css /opt/conda/pkgs/notebook-5.7.5-py37_0/lib/python3.7/site-packages/notebook/static/custom/custom.css
+ADD custom.css /opt/conda/pkgs/jupyter_core-4.6.1-py37_0/lib/python3.7/site-packages/jupyter_core/tests/dotipython/profile_default/static/custom/custom.css
+ADD custom.css /opt/conda/pkgs/jupyter_core-4.6.1-py37_0/lib/python3.7/site-packages/jupyter_core/tests/dotipython_empty/profile_default/static/custom/custom.css
+ADD custom.css /opt/conda/pkgs/notebook-6.0.1-py37_0/lib/python3.7/site-packages/notebook/static/custom/custom.css
+ADD custom.css /opt/conda/pkgs/jupyter_core-4.4.0-py_0/site-packages/jupyter_core/tests/dotipython/profile_default/static/custom/custom.css
+ADD custom.css /opt/conda/pkgs/jupyter_core-4.4.0-py_0/site-packages/jupyter_core/tests/dotipython_empty/profile_default/static/custom/custom.css
+ADD custom.css 		/tmp
+ADD common.json  	/tmp
+ADD tree.json  		/tmp
+ADD notebook.json 	/tmp
+ADD common.json   	/tmp
+ADD tree.json     	/tmp
+ADD notebook.json  	/tmp
+ADD add_files.sh  	/tmp
+RUN Rscript -e 'install.packages("lightgbm",repos = "https://cran.r-project.org",dependencies = TRUE)'
+
+USER root
+ENV R_BASE_VERSION 4.1.2
+
+RUN apt-get update \
+        && apt-get install -y --no-install-recommends \
+                r-base=${R_BASE_VERSION}* \
+                r-recommended=${R_BASE_VERSION}* \
+        && echo 'options(repos = c(CRAN = "https://cloud.r-project.org/"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site 
+
+RUN Rscript -e "IRkernel::installspec(name = 'ir412', displayname = 'R 4.1.2')"
+RUN mamba install --yes  csvkit 
+
+
+USER ${NB_UID}
+RUN pip install mysqlclient tensorflow

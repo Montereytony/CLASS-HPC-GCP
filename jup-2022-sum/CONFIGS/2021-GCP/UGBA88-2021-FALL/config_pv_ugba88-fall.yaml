@@ -1,0 +1,14 @@
+# persistent volume
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ugba88-pv
+  namespace: ugba88
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.128.0.10
+    path: "home/ugba88/2021-fall"

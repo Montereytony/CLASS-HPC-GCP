@@ -1,0 +1,58 @@
+hub:
+  cookieSecret: "47c2d3f61aae039de451e81cea40bcdcd8ee026e43b0c7692e7d506d03eca1e7"
+  db:
+    type: sqlite-memory
+  extraConfig:
+    announcements: |
+      c.JupyterHub.template_vars.update({ 'announcement': 'tony_cricelli@berkeley.edu is responsible for this Jupyterhub. <br/> <br/> <br/><b>On Nov 4th around 6pm, this hub crashed. <br/>I  was unable to fix the issue. Finally, in the early hours of Nov 5th,<br/>  I decided to delete the hub and rebuild it from scratch. <br/>  My sincerest apologies for the deletions of all the notebooks. <br/>Please feel free to contact me or call me on my mobile 831-236-6692.</b>', })
+proxy:
+  secretToken: "073066153aa613b1ac21fbbc63a925492b91d42dcc7a2b43ce0b378d30ba5122"
+  https:
+#   enabled: true
+    hosts:
+      - mba290t-13.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 35.193.3.223
+prePuller:
+  hook:
+    enabled: false
+  continuous:
+    enabled: false
+singleuser:
+  image:
+    name: montereytony/mba200a
+    tag: jup2-9
+#    name: montereytony/sql101
+#    tag: latest
+  memory:
+    limit: 1G
+    guarantee: .5G
+  cpu:
+    limit: 1
+    guarantee: .5
+  storage:
+    capacity: 5Gi
+    dynamic:
+      storageClass: standard
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://mba290t-13.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  admin:
+    users:
+      - tony_cricelli
+      - adelkar

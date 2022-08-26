@@ -1,0 +1,46 @@
+hub:
+  cookieSecret: "0ccc8f63b31ee1a9c401e17728bbd8def7c4411fe1aa9e2d49f23addccca38e3"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "e71fa6b10b7f89e7324571ae13afa0cb5431369499b6b4955b955abf8bbb1ece"
+#  https:
+#    enabled: true
+#    type: offload
+#  service:
+#    type: ClusterIP
+#    loadBalancerIP: 10.128.0.59
+prePuller:
+  enabled: false
+singleuser:
+  image:
+    name: montereytony/yuli
+    tag: test1
+  memory:
+    limit: 6G
+    guarantee: 1G
+  cpu:
+    limit: 2
+    guarantee: 1
+  storage:
+    capacity: 5Gi
+    dynamic:
+      storageClass: standard
+#      storageClass: jupyterhub-user-ssd
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work;
+#            /opt/conda/bin/gitpuller https://github.com/rahuntsinger/ugba147test main shared;
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://mba247.11.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."

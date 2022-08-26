@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: preterm2022-pv
+spec:
+  capacity:
+   storage: 300Gi
+  accessModes:
+   - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: class-preterm2022
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /home/preterm2022/2022-fall/homes
+    server: 10.128.0.10
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: preterm2022-pvc
+spec:
+  storageClassName: class-preterm2022
+  accessModes:
+   - ReadWriteMany
+  resources:
+   requests:
+    storage: 5Gi

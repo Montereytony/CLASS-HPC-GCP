@@ -1,0 +1,53 @@
+#scheduling:
+#  userScheduler:
+#    enabled: true
+#  podPriority:
+#    enabled: true
+#  userPlaceholder:
+#    enabled: true
+#    replicas: 2
+#  userPods:
+#    nodeAffinity:
+#      matchNodePurpose: require
+#cull:
+#  enabled: true
+#  timeout: 3600
+#  every: 300
+hub:
+  cookieSecret: "97aba225cbb2b601b213b6b84c0f19fff81831d4c1445f54caa96aaaefcd218d"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "0af659457be50b382ccd3f90a90674a61cba930a5ec247ef6a327c812bd4beef"
+prePuller:
+  enabled: false
+singleuser:
+  image:
+     name: montereytony/sql101
+     tag: latest
+  memory:
+     limit: 1G
+     guarantee: .5G
+  cpu:
+    limit: 1
+    guarantee: .5
+  storage:
+    capacity: 5Gi
+    dynamic:
+      storageClass: standard
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://mba290t-13.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."

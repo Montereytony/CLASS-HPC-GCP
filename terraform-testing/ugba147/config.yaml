@@ -1,0 +1,108 @@
+#
+#
+# Tony Cricelli 2022
+#  Testing Yaml File for use with GCP Autopilot
+#
+#
+#scheduling:
+#  podPriority:
+#    enabled: false
+#  userPlaceholder:
+#    enabled: true
+#    replicas: 3
+#  userPods:
+#    nodeAffinity:
+#      matchNodePurpose: require
+#cull:
+#  enabled: true
+#  users: false
+#  timeout: 7200
+#  every: 1200
+prePuller:
+  continuous:
+    enabled: false
+  hook:
+    enabled: false
+singleuser:
+  cloudMetadata:
+    blockWithIptables: false
+  image:
+    name: montereytony/ugba-rah-sp22
+    tag: jup2-02
+  memory:
+    limit: 2G
+    guarantee: 1G
+  cpu:
+    limit: .50
+    guarantee: .25
+  storage:
+    type: static
+    storageClass: "manual2"
+    static:
+      pvcName: homer1
+      subPath: '{username}'
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+        readOnly: true
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: pv0004
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work;
+            /bin/sh /tmp/add_files.sh;
+proxy:
+  secretToken: "f33560f2a799bf1431f96de9b40b9306b0a9d67568529909c8152cf871514f70"
+#  https:
+#    enabled: true
+#    hosts:
+#      - ugba147-2022-fall.haastech.org
+#    letsencrypt:
+#      contactEmail: tony_cricelli@berkeley.edu
+#  service:
+#    loadBalancerIP: 35.225.18.150
+jupyterhub:
+  hub:
+    # See: https://jupyterhub.readthedocs.io/en/stable/api/app.html
+    activity_resolution: 120  # Default 30.
+    hub_activity_interval: 600  # Default 300.
+    last_activity_interval: 300  # Default 300, 60 in z2jh helm chart.
+    init_spawners_timeout: 1  # Default 10
+hub:
+  cookieSecret: "4341d4ff03006d8f4efc7dcd2822a113772849327bceec4e313f341863af29fd"
+  db:
+    type: sqlite-memory
+  config:
+    DummyAuthenticator:
+      password: N@choY0Mama
+    JupyterHub:
+      authenticator_class: dummy
+    Authenticator:
+      admin_users:
+        - tony
+      allowed_users:
+        - yoshi
+        - zane
+        - pchew
+#  config:
+#    GoogleOAuthenticator:
+#      client_id: 152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com
+#      client_secret: jXNHCWRcYWfXW1Y9HV0zhUuZ
+#      oauth_callback_url: https://ugba147-2022-fall.haastech.org/hub/oauth_callback
+#      hosted_domain:
+#        - berkeley.edu
+#      login_service: your Berkeley Account.
+#    JupyterHub:
+#      authenticator_class: google
+#    Authenticator:
+#      admin_users:
+#        - tony_cricelli
+#      allowed_users:
+#        - yoshikim

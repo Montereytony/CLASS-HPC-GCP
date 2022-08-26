@@ -1,0 +1,39 @@
+FROM ubuntu:latest
+
+# Updating packages
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+       git \
+       nano \
+       unzip \
+       curl \
+       wget \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install conda and Jupyter
+RUN cd /tmp  && curl -O https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_64.sh && bash Anaconda3-2019.07-Linux-x86_64.sh -b -p /opt/anaconda
+
+RUN /opt/anaconda/bin/conda update -y conda
+RUN /opt/anaconda/bin/conda install -c conda-forge jupyter_nbextensions_configurator \
+    jupyterhub \
+    jupyterlab \
+    matplotlib \
+    pandas \
+    scipy
+RUN /opt/conda/bin/conda update traitlets
+RUN apt-get -y install gcc
+#ADD GloVe-1.2 /tmp/glove
+#RUN cd /tmp/glove; make
+#RUN cp /tmp/glove/build/* /usr/local/bin
+#RUN rm -r -f /tmp/glove;
+RUN cd /tmp && \
+    git clone https://github.com/maciejkula/glove-python.git && \
+    cd glove-python && \
+    python setup.py install
+
+# Setup application
+EXPOSE 8000
+
+CMD ["jupyterhub", "--ip='*'", "--port=8000", "--no-browser", "--allow-root"]
+

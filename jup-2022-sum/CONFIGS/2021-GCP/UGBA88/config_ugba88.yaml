@@ -1,0 +1,167 @@
+hub:
+  cookieSecret: "d1ddd59e213d5dd9b969c67f6abc5870f5010a81ea750c3903a3c62aca998657"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "e99ced63df7fc9c30b8b437f99d4a9d420ca9c3812993d7031307e7170ab92ce"
+  https:
+    enabled: true
+    hosts:
+      - ugba88.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 35.223.10.143
+cull:
+  enabled: true
+  users: false
+  timeout: 3600
+  every: 600
+prePuller:
+  enabled: false
+singleuser:
+  image:
+    name: montereytony/ugba147
+    tag: ugba88-Spring-2021-19
+    pullPolicy: IfNotPresent
+
+#    tag: ugba88-Spring-2021-17
+#    tag: ugba88-Spring-2021-13
+#    tag: ugba88-Spring-2021-12
+  memory:
+    limit: 2G
+    guarantee: .25G
+  cpu:
+    limit: 1
+    guarantee: .25
+  storage:
+    capacity: 10Gi
+    dynamic:
+      storageClass: standard
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: nfs-pv-ugba88
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+        readOnly: True
+  lifecycleHooks:
+    postStart:
+      exec:
+        command: ["/bin/sh", "-c", "/tmp/add_files.sh;mkdir -p my-work"]
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://ugba88.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  admin:
+    users:
+      - tony_cricelli
+      - rhuntsinger
+      - omer_ardic
+      - asantillan
+  whitelist:
+    users:
+      - tony_cricelli
+      - rhuntsinger
+      - omer_ardic
+      - jorge10gr
+      - shreyaayyagari
+      - juanalbertomontoya7
+      - toshi.jain
+      - ryanxchen
+      - hiapril
+      - narang
+      - gabriella.senderov
+      - collin.travasos
+      - daniellee11501
+      - liampatel
+      - willfulton
+      - noonconner
+      - destinyjolie
+      - sophiacocking
+      - lilynavab
+      - chm
+      - janieceyow
+      - garrett.kitahata
+      - tsengb
+      - anniexuan
+      - mandolinponce
+      - ryanshah
+      - rijulg
+      - nhsu02
+      - kylewonzen
+      - aramezani
+      - tommybarrell
+      - kgchar
+      - fatimafadel
+      - supersid1269
+      - hhanesand
+      - saraigomez
+      - victoriazheng
+      - pkargupta
+      - ngoctvu
+      - lkarlitz
+      - aliciawang
+      - gowri.datta
+      - srinija
+      - rithvik
+      - shilpasath
+      - jaypatel16
+      - ethanfang
+      - myersju
+      - ashnavalia
+      - rayalee
+      - vivianfeng
+      - j.lichtenfeld
+      - ishaan.mishra
+      - alexao
+      - aluong17
+      - ejho
+      - shyam.sethi
+      - vidusheemishra
+      - tanishkumar
+      - clarkboyce_104
+      - kevin.liao.02
+      - jadenbryan
+      - anura.vohra
+      - thomaswang
+      - brettonshawpindo
+      - andrew.tang
+      - amanda.wu
+      - priyanshik
+      - smanghise
+      - huixia_estella_lee
+      - aaronkim625
+      - paulinacalmes
+      - asenoff
+      - sriram.diyyala
+      - neharamakrishnan
+      - rakshasen
+      - susannahuangg
+      - brettonshawpindo
+      - siriph
+      - sbkim15
+      - rayyan
+      - ssikaria
+      - alezha
+      - michaelshemian
+      - chakatellem
+      - dsekariyongokoita
+      - jackli0707
+      - midoripierce
+      - aayushdave123
+      - nikita.chuvakhin
+      - ohhering9
+      - sbkim15
+      - jeenachong
+      - aopell
+      - laurenkoch
+      - mohitgupta
+      - alessandratsai
+      - fox
+      - suzanneharrsion

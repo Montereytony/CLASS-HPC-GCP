@@ -1,0 +1,55 @@
+hub:
+  cookieSecret: "618d08c6b1e6c4da3eb4e748a66821362eb220382a26c9286d3d65c9e0be7870"
+  db:
+    type: sqlite-memory
+  concurrentSpawnLimit: 200
+  extraConfig:
+    announcements: |
+      c.JupyterHub.template_vars.update({ 'announcement': 'Report issues to tony_cricelli@berkeley.edu', })
+proxy:
+  secretToken: "e47e056aa44992f7114a4a639619d76459417f7f9a9465d96f596e2a423bab4b"
+  https:
+    enabled: true
+    hosts:
+      - mfe230d-summer.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 34.123.124.246
+prePuller:
+  enabled: false
+singleuser:
+  image:
+    name: montereytony/ugba147
+    tag: ugba147-Spring-2021-5
+  memory:
+    limit: 6G
+    guarantee: .5G
+  cpu:
+    limit: 1
+    guarantee: 0.25
+  storage:
+    capacity: 2Gi
+    dynamic:
+      storageClass: standard
+#  defaultUrl: "/lab"
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            export GIT_DISCOVERY_ACROSS_FILESYSTEM=1;
+            mkdir -p my-work;
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://mfe230d-summer.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  admin:
+    users:
+      - tony_cricelli

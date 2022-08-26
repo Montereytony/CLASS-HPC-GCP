@@ -1,0 +1,34 @@
+hub:
+  cookieSecret: "a23f70b4624f66f003a8fb57ef12741bf3a03e512f6a68a36e6c3b1de7484944"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "d6a74b9a583dcdc31183a59d20ad258cd152de64a2af0ace14089fec52137153"
+prePuller:
+  enabled: false
+singleuser:
+  image:
+    name: montereytony/mba263
+    tag: 121419
+  memory:
+    limit: 2G
+    guarantee: 2G
+  cpu:
+    limit:  1.0
+    guarantee: 1.0
+  storage:
+    capacity: 10Gi
+    dynamic:
+      storageClass: standard
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://ewmba263-11.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  admin:
+    users:
+      - tony_cricelli
+      - olivia.natan

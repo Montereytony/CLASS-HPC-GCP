@@ -1,0 +1,77 @@
+hub:
+  cookieSecret: "e835564eedbe1e149ed2dcc65746ceda98da3a324968f74719ef5e5a55c93896"
+  db:
+    type: sqlite-memory
+  concurrentSpawnLimit: 200
+  extraConfig:
+    announcements: |
+      c.JupyterHub.template_vars.update({ 'announcement': 'Report issues to tony_cricelli@berkeley.edu', })
+proxy:
+  secretToken: "350f57804dfb66e6a47a275446dcfa0785d63f2318e1cb799bb9445c85c0810f"
+  https:
+    enabled: true
+    hosts:
+      - mfe-t5.haastech.org
+    letsencrypt:
+      contactEmail: tony_cricelli@berkeley.edu
+  service:
+    loadBalancerIP: 34.70.237.188
+prePuller:
+  enabled: false
+singleuser:
+  image:
+    name: montereytony/ugba147
+    tag: ugba88-Spring-2021-17
+#    tag: ugba88-Spring-2021-13
+#    tag: mfe-t5-Spring-2021-8
+#    name: montereytony/mfe-t5
+#    tag: mfe-t5Spring2020-2
+  memory:
+    limit: 4G
+    guarantee: .5G
+  cpu:
+    limit: 2
+    guarantee: 0.25
+  storage:
+    capacity: 10Gi
+    dynamic:
+      storageClass: standard
+    extraVolumes:
+      - name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: nfs-pv-mfe-t5
+    extraVolumeMounts:
+      - name: jupyterhub-shared
+        mountPath: /home/jovyan/shared
+#  defaultUrl: "/lab"
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            export GIT_DISCOVERY_ACROSS_FILESYSTEM=1;
+            mkdir -p my-work;
+            bash /tmp/add_files.sh;
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://mfe-t5.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."
+  admin:
+    users:
+      - tony_cricelli
+  whitelist:
+    users:
+      - tony_cricelli
+      - yanggang_fang
+      - ereiner83
+      - zhanqi.yang
+      - bolun_deng
+      - hexin_xu
+      - jinyang_li
+      - nebres

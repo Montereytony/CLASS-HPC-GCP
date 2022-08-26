@@ -1,0 +1,39 @@
+hub:
+  cookieSecret: "4488e38105f3a39166ed09d16616e34b9fc6443a175d5acca7b1dec4deb88d7e"
+  db:
+    type: sqlite-memory
+proxy:
+  secretToken: "0a1a4a1416042dd41917204450aa67abf37346e2629414ad12487352406d1295"
+prePuller:
+  enabled: true
+singleuser:
+  image:
+     name: montereytony/sql101
+     tag: latest
+  memory:
+     limit: 1G
+     guarantee: .5G
+  cpu:
+    limit: 1
+    guarantee: .5
+  storage:
+    capacity: 5Gi
+    dynamic:
+      storageClass: standard
+#      storageClass: jupyterhub-user-ssd
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            mkdir -p my-work
+auth:
+  type: google
+  google:
+    clientId: "152813298217-1e7ap4ie9rugg5mfh2nmenc3f7d9o55g.apps.googleusercontent.com"
+    clientSecret: "jXNHCWRcYWfXW1Y9HV0zhUuZ"
+    callbackUrl: "https://mba290t-13.haastech.org/hub/oauth_callback"
+    hostedDomain: [berkeley.edu]
+    loginService: "your Berkeley Account."

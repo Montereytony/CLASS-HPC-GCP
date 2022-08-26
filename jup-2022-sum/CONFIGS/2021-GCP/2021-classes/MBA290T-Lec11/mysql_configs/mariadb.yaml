@@ -1,0 +1,1 @@
+helm install --name xzhang_db --release stable/mariadb -f values-production.yaml --set rootUser.password=XzHang_P --set replication.password=REPLICATION_XzHang_p --set master.persistence.size=10Gi
